@@ -38,11 +38,11 @@ public class Junction extends SimulatedObject{
 		lastSwitch=0;
 	}
 
-	int getX() {
+	public int getX() {
 		return x;
 	}
 
-	int getY() {
+	public int getY() {
 		return y;
 	}
 
