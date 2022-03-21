@@ -4,12 +4,31 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import extra.jtable.EventEx;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 public class RoadsTableModel extends AbstractTableModel implements TrafficSimObserver{
+	private static final long serialVersionUID = 1L;//no lo damos, es para serializacion
 
+	private List<EventEx> _events;
+
+	private String[] _colNames = { "Id", "Length", "Weather",
+	        "Max. Speed", "Speed Limit", "Total CO2", "CO2 Limit" };
+
+	public RoadsTableModel() {
+		_events=null;
+	}
+
+	  
+
+	
+	
+	
+	
+	
+	
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub

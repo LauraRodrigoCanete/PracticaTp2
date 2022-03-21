@@ -10,6 +10,8 @@ import simulator.model.TrafficSimObserver;
 
 public class JunctionsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
+	private String[] columnNames = { "Id", "Green", "Ques"};
+	
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
