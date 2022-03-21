@@ -1,0 +1,7 @@
+para hacer los modelos de los jtable vamos a necesitar añadir 2 getters en cruces q devolveran listas y tienen q devolver un puntero de solo lectura para q no se modifique
+
+para sacar el texto de las excepciones tendremos q extender a jdialog (analogo a las ventanas semipreparados jRadioButtonYOptionPane)
+
+para cuando yo le doy al boton salir me tiene q aparecer una ventana de estas seguro q quieres salir(ejemplo JOptionPane ventana semipreparada de opciones)
+
+la ventana de cambiar el dialogo no es una ventana semipreparada hay q extender el dialogo y hacer una (extra, dialog2, dialogWindowExample) 

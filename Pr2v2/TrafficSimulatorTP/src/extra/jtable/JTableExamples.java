@@ -102,7 +102,7 @@ public class JTableExamples extends JFrame {
 		_eventsTable = new JTable(_model);
 
 		eventsPanel.add(new JScrollPane(_eventsTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED)); //si añades el jtable sin el jscrollpane no saldrán los nombres de las columnas
 
 		// the actual events list
 		_events = new ArrayList<EventEx>();
@@ -115,20 +115,21 @@ public class JTableExamples extends JFrame {
 	}
 
 	public void addEvent() {
-		try {
+		try {//cogemos el valor del jspinner y el jcombo
 			Integer time = (Integer) _time.getValue();
 			Integer priority = (Integer) _priotiry.getSelectedItem();
-			_events.add(new EventEx(time, priority));
+			//como yo hice un set antes _model.setEventsList(_events) el objeto del model y el de este son el mismo
+			_events.add(new EventEx(time, priority));//nosotros no lo pasamos del jframe al modelo pq nos llega con las notificaciones
 			
 			// avisamos al modelo de tabla para que se actualize. En la
-			// prÃ¡ctica esto no hace falta porque se le avisa directamente 
+			// practica esto no hace falta porque se le avisa directamente 
 			// el TrafficSimulator
 			//
 			// We notify the table model that the list has been changed. This is not
 			// required in the assignment, it will be notified directly by the 
 			// TrafficSimulator since it is an observer
 			//
-			_model.update();
+			_model.update();//actualizar la tabla se hace actualizando el modelo
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog( //
 					(Frame) SwingUtilities.getWindowAncestor(this), //

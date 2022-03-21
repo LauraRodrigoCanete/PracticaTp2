@@ -9,7 +9,7 @@ public class NewInterCityRoadEvent extends NewRoadEvent {
 
 	@Override
 	Road createRoadObject() {
-		return new InterCityRoad(id, map.getJunction(srcJunc), map.getJunction(destJunc), maxSpeed, co2Limit, length, weather);
+		return new InterCityRoad(id, realSrcJunc, realDestJunc, maxSpeed, co2Limit, length, weather);
 	}
 
 }
