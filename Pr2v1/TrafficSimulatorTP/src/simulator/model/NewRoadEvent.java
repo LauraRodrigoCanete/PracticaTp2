@@ -10,6 +10,8 @@ public abstract class NewRoadEvent extends Event {
 	protected int maxSpeed;
 	protected Weather weather;
 	protected RoadMap map;
+	protected Junction realSrcJunc;
+	protected Junction realDestJunc;
 	
 	public NewRoadEvent(int time, String id, String srcJunc, String
 			destJunc, int length, int co2Limit, int maxSpeed, Weather weather) {
@@ -25,6 +27,8 @@ public abstract class NewRoadEvent extends Event {
 	
 	void execute(RoadMap map) {
 		this.map = map;
+		realSrcJunc = map.getJunction(srcJunc);
+		realDestJunc = map.getJunction(destJunc);
 		map.addRoad(createRoadObject());
 	}
 

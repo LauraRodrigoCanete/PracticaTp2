@@ -60,7 +60,7 @@ public class Vehicle extends SimulatedObject{
 	}
 
 	public List<Junction> getItinerary() {
-		return itinerary;
+		return Collections.unmodifiableList(itinerary);
 	}
 
 	public Road getRoad() {

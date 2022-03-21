@@ -46,7 +46,7 @@ public class Junction extends SimulatedObject{
 		return y;
 	}
 
-	public void addIncomingRoad(Road r) {
+	void addIncomingRoad(Road r) {
 		if(!r.getDest().equals(this))
 			  throw new IllegalArgumentException("Invalid road ");
 		entryRoadsList.add(r);
@@ -55,7 +55,7 @@ public class Junction extends SimulatedObject{
 		queueMap.put(r, queue);		
 	}
 	
-	public void addOutgoingRoad(Road r) {
+	void addOutgoingRoad(Road r) {
 		if(r.getSrc()!=this || exitRoadsMap.get(r.getDest()) != null)
 			  throw new IllegalArgumentException("Invalid arguments ");
 		exitRoadsMap.put(r.getDest(), r);
@@ -71,7 +71,7 @@ public class Junction extends SimulatedObject{
 	}
 	
 	@Override
-	public void advance(int time) {
+	void advance(int time) {
 		if(trafficLight != -1) {
 			List<Vehicle> vehiclesqueue = dqStrategy.dequeue(queueList.get(trafficLight));
 	
