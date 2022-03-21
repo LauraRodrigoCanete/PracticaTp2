@@ -31,6 +31,6 @@ public abstract class NewRoadEvent extends Event {
 		realDestJunc = map.getJunction(destJunc);
 		map.addRoad(createRoadObject());
 	}
-
+	
 	abstract Road createRoadObject();
 }

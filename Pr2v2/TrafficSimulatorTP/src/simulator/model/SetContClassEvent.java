@@ -24,5 +24,9 @@ public class SetContClassEvent extends Event {
 			v.setContClass(cs.get(i).getSecond());
 		}
 	}
-
+	
+	@Override
+	public String toString() {
+		return "New SetContClassEvent";
+	}
 }
