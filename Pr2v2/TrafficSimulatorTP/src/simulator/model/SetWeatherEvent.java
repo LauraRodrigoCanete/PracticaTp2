@@ -28,6 +28,13 @@ public class SetWeatherEvent extends Event{
 
 	@Override
 	public String toString() {
-		return "New SetWeatherEvent";
+		String s = "Change Weather: [";
+		for(int i = 0; i<ws.size(); i++) {
+			s = s + "(" + ws.get(i).getFirst() + "," + ws.get(i).getSecond().toString() + ")";
+			if(i!= ws.size()-1)
+				s += ", ";
+		}
+		s += "]";
+		return s;
 	}
 }

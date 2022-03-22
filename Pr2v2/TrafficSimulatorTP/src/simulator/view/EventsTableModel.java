@@ -4,34 +4,70 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
-	@Override
-	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
+	private Controller controller;
+	private List<Event> _events;
+	private String[] _colNames = { "Time", "Desc" };
+
+	public EventsTableModel(Controller controller) {
+		_events=null;
+		this.controller = controller;
+		//controller.addObserver(this);
+		//this.setVisible(true);
+	}
+	
+	public void setEventsList(List<Event> events) {
+		_events = events;
+		fireTableDataChanged();	
 	}
 
 	@Override
+	public boolean isCellEditable(int row, int column) {//no puedes modificar el dato de la casilla
+		return false;
+	}
+
+	//si no pongo esto no coge el nombre de las columnas
+	@Override
+	public String getColumnName(int col) {
+		return _colNames[col];
+	}
+
+	@Override
+	// metodo obligatorio
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return _colNames.length;
 	}
 
 	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
+	// metodo obligatorio
+	public int getRowCount() {
+		return _events == null ? 0 : _events.size();//no puedo hacer null.size()
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {//no le llamaremos es para ver como se visualiza cada casilla (fila,col)
+		//quiero cada evento en una fila (el de la pr es igual q este)
+		Object s = null;
+		switch (columnIndex) {//cada case es una columna
+		case 0:
+			s = _events.get(rowIndex).getTime();
+			break;
+		case 1:
+			s = _events.get(rowIndex).toString();
+			break;
+		}
+		return s;
 	}
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		fireTableDataChanged();//si cambia el tiempo se pueden haber añadido más eventos
 	}
 
 	@Override
