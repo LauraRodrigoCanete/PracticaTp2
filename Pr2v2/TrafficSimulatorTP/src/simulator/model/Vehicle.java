@@ -58,6 +58,10 @@ public class Vehicle extends SimulatedObject{
 	public int getTotalCO2() {
 		return CO2;
 	}
+	
+	public int getDistance() {
+		return distance;
+	}
 
 	public List<Junction> getItinerary() {
 		return Collections.unmodifiableList(itinerary);

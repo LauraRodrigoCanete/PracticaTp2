@@ -18,8 +18,8 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	public EventsTableModel(Controller controller) {
 		_events=null;
 		this.controller = controller;
-		//controller.addObserver(this);
-		//this.setVisible(true);
+		controller.addObserver(this);
+		//esto no se hace visible, ya hacemos visible el JFrame entero
 	}
 	
 	public void setEventsList(List<Event> events) {
@@ -51,12 +51,11 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	}
 
 	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {//no le llamaremos es para ver como se visualiza cada casilla (fila,col)
-		//quiero cada evento en una fila (el de la pr es igual q este)
+	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object s = null;
 		switch (columnIndex) {//cada case es una columna
 		case 0:
-			s = _events.get(rowIndex).getTime();
+			s = _events.get(rowIndex).getTime();//los ticks son cada cuanto avanzas, el time el numero de ticks totales avanzados
 			break;
 		case 1:
 			s = _events.get(rowIndex).toString();
@@ -67,36 +66,31 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		fireTableDataChanged();//si cambia el tiempo se pueden haber añadido más eventos
+		setEventsList(events);
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		setEventsList(events);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
+		setEventsList(events);
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		setEventsList(events);
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onError(String err) {
-		// TODO Auto-generated method stub
 		
 	}
 
