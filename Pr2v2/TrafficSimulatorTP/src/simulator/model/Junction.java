@@ -42,6 +42,16 @@ public class Junction extends SimulatedObject{
 		return x;
 	}
 
+	public List<List<Vehicle>> getQueueList() {
+		return queueList;
+	}
+
+
+	public int getTrafficLight() {
+		return trafficLight;
+	}
+
+
 	public int getY() {
 		return y;
 	}

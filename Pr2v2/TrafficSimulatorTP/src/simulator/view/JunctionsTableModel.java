@@ -5,27 +5,25 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import extra.jtable.EventEx;
+import simulator.control.Controller;
 import simulator.model.Event;
+import simulator.model.Junction;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 public class JunctionsTableModel extends AbstractTableModel implements TrafficSimObserver {
-	private List<EventEx> _events;
+	private List<Junction> _junctions;
+	private Controller controller;
 	private String[] _colNames = { "Id", "Green", "Ques"};
-	public JunctionsTableModel() {
-		_events=null;	
+	public JunctionsTableModel(Controller controller) {
+		_junctions=null;	
+		this.controller = controller;
+		controller.addObserver(this);
 	}
-	public void update() {
-		// observar que si no refresco la tabla no se carga
-		// La tabla es la represantación visual de una estructura de datos,
-		// en este caso de un ArrayList, hay que notificar los cambios.
-		
-		// We need to notify changes, otherwise the table does not refresh.
-		fireTableDataChanged();//si cambio los datos del modelo al jtable hay q actualizarla, si no no se ven		
-	}//hay varios metodos para actualizar
-	public void setEventsList(List<EventEx> events) {
-		_events = events;
-		update();
+	
+	public void setJunctionsList(List<Junction> junctions) {
+		_junctions = junctions;
+		fireTableDataChanged();	
 	}
 	public boolean isCellEditable(int row, int column) {//no puedes modificar el dato de la casilla
 		return false;
@@ -35,7 +33,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 	}
 	@Override
 	public int getRowCount() {
-		return _events == null ? 0 : _events.size();//no puedo hacer null.size()
+		return _junctions == null ? 0 : _junctions.size();//no puedo hacer null.size()
 	}
 
 	@Override
@@ -48,13 +46,27 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 		Object s = null;
 		switch(columnIndex) {
 		case 0:
-			s=_events.get(rowIndex).toString().valueOf("id");
+			s=_junctions.get(rowIndex).getId();
 			break;
 		case 1:
-			s=_events.get(rowIndex).toString().valueOf("Green");
+			s=_junctions.get(rowIndex).getTrafficLight();
+			if(s.equals(-1))
+				s="NONE";
 			break;
 		case 2:
-			s=_events.get(rowIndex).toString().valueOf("Queues");
+			String a="";
+			for(int i=0; i<this._junctions.size();i++) {
+				a+=this._junctions.get(i).getId()+":";
+				if(_junctions.get(i).getQueueList().size()==0) 
+					a+="[]";			
+				else {
+					for(int j=0;j<_junctions.get(i).getQueueList().size();j++) {
+						a+="[";
+						a+=_junctions.get(i).getQueueList().get(j).toString();
+						a+="]";
+					}
+				}			
+			}
 			break;
 		}
 		return s;
@@ -62,26 +74,22 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		setJunctionsList(map.getJunctions());
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		setJunctionsList(map.getJunctions());
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
+		setJunctionsList(map.getJunctions());
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		setJunctionsList(map.getJunctions());
 	}
 
 	@Override
@@ -92,8 +100,9 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
 	@Override
 	public void onError(String err) {
-		// TODO Auto-generated method stub
-		
 	}
+
+
+	
 
 }
