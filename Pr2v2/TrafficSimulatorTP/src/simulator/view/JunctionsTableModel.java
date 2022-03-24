@@ -14,7 +14,8 @@ import simulator.model.TrafficSimObserver;
 public class JunctionsTableModel extends AbstractTableModel implements TrafficSimObserver {
 	private List<Junction> _junctions;
 	private Controller controller;
-	private String[] _colNames = { "Id", "Green", "Ques"};
+	private String[] _colNames = { "Id", "Green", "Queues"};
+	
 	public JunctionsTableModel(Controller controller) {
 		_junctions=null;	
 		this.controller = controller;
@@ -94,8 +95,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		setJunctionsList(map.getJunctions());
 	}
 
 	@Override
