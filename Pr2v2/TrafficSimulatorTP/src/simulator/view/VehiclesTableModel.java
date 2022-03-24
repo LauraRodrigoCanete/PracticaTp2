@@ -60,27 +60,22 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 			s = _vehicles.get(rowIndex).getId();
 			break;
 		case 1:
-			if(_vehicles.get(rowIndex).getStatus() != VehicleStatus.ARRIVED) {
+			if(_vehicles.get(rowIndex).getStatus() == VehicleStatus.ARRIVED)
+				s = "Arrived";
+			else if(_vehicles.get(rowIndex).getStatus() == VehicleStatus.PENDING)
+				s = "Pending";
+			else if(_vehicles.get(rowIndex).getStatus() == VehicleStatus.WAITING)
+				s = "Waiting:" + _vehicles.get(rowIndex).getWaitingJunction();
+			else {
 				String aux = "";
 				if (_vehicles.get(rowIndex).getRoad() != null) 
 					aux = _vehicles.get(rowIndex).getRoad().getId() + ":";
 				aux += _vehicles.get(rowIndex).getLocation();
 				s = aux;
 			}
-			else
-				s = "Arrived";
 			break;
 		case 2:
-			 List<Junction> lj = _vehicles.get(rowIndex).getItinerary();
-			
-			String a = "[";
-			for(int i = 0; i<lj.size(); i++) {
-				a = a + lj.get(i).getId();
-				if(i!= lj.size()-1)
-					a += ", j";//hay espacio?
-			}
-			a += "]";
-			s = a;
+			s = _vehicles.get(rowIndex).getItinerary();
 			break;
 		case 3:
 			s = _vehicles.get(rowIndex).getContClass();
@@ -104,7 +99,6 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		setVehiclesList(map.getVehicles());
 	}
 
 	@Override
@@ -124,7 +118,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		// TODO Auto-generated method stub
+		setVehiclesList(map.getVehicles());
 		
 	}
 

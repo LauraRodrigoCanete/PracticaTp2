@@ -66,6 +66,10 @@ public class Vehicle extends SimulatedObject{
 	public List<Junction> getItinerary() {
 		return Collections.unmodifiableList(itinerary);
 	}
+	
+	public String getWaitingJunction() {
+		return itinerary.get(prevJunction+1).getId();
+	}
 
 	public Road getRoad() {
 		return road;

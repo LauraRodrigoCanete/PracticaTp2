@@ -12,7 +12,7 @@ import simulator.model.TrafficSimObserver;
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
 	private Controller controller;
-	private List<Event> _events;
+	private List<Event> _events;//la fila i-esima es el elemento de la list i-esimo
 	private String[] _colNames = { "Time", "Desc" };
 
 	public EventsTableModel(Controller controller) {
@@ -66,7 +66,6 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		setEventsList(events);
 	}
 
 	@Override
@@ -86,12 +85,11 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-		
+		setEventsList(events);
 	}
 
 	@Override
 	public void onError(String err) {
-		
 	}
 
 }
