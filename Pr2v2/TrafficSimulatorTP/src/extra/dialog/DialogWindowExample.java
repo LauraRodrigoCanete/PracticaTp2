@@ -8,7 +8,7 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public class DialogWindowExample extends JFrame {
-
+	//Jdialog: para cambiar el tiempo en la carretera y la cont en los vehiculos
 
 	public DialogWindowExample() {
 		super("Custom Dialog Example");
@@ -47,14 +47,15 @@ public class DialogWindowExample extends JFrame {
 		// of MyDialogWindow instead of 'this'
 		//
 
-		MyDialogWindow dialog = new MyDialogWindow(this);
+		MyDialogWindow dialog = new MyDialogWindow(this);//hay q crearlo
 
 		List<Dish> dishes = new ArrayList<Dish>();
 		for (int i = 0; i < 10; i++) {
 			dishes.add(new Dish("Yum Yum " + i));
 		}
 
-		int status = dialog.open(dishes);
+		//sin esta linea no es visible, se hace visible en el open
+		int status = dialog.open(dishes);//hay q abrirlo con los datos, en la pr cada vez q hago el open se abrirá con los datos q haya luego siempre tiene q estar actualizado para no sacar datos antiguos
 
 		if (status == 0) {
 			System.out.println("Canceled");

@@ -20,17 +20,18 @@ class MyDialogWindow extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	private int _status;
-	private JComboBox<Dish> _dishes;
-	private DefaultComboBoxModel<Dish> _dishesModel;
+	private JComboBox<Dish> _dishes;//lo tendremos con vehiculos con carreteras...
+	private DefaultComboBoxModel<Dish> _dishesModel;//este modelo refresca automaticamente a diferencia del jtablemodel creado por nosotros
 
 	public MyDialogWindow(Frame parent) {
-		super(parent, true);
+		//siempre es modal, tiene mas sentido para un jdialog
+		super(parent, true);//el segundo argumento indica q la ventana es modal (q hasta q se acepte o se cancele no me deja interactuar con la anterior)
 		initGUI();
 	}
 
 	private void initGUI() {
 
-		_status = 0;
+		_status = 0;//para q si cierro el cuadro de dialogo sin pulsar a los botones salga tambien el status de 0 por defecto
 
 		setTitle("Food Selector");
 		JPanel mainPanel = new JPanel();
@@ -42,12 +43,16 @@ class MyDialogWindow extends JDialog {
 
 		mainPanel.add(helpMsg);
 
+		//para que no salga pegado al "Select your favorite"
 		mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
 		JPanel viewsPanel = new JPanel();
 		viewsPanel.setAlignmentX(CENTER_ALIGNMENT);
 		mainPanel.add(viewsPanel);
 
+		//creamos el modelo y luego se lo paso al constructor del JComboBox
+		// analogo al JTable, pero en este caso el modelo refresca,
+		//el modelo tiene datos como addElement(E), 
 		mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
 		JPanel buttonsPanel = new JPanel();
@@ -65,7 +70,7 @@ class MyDialogWindow extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				_status = 0;
-				MyDialogWindow.this.setVisible(false);
+				MyDialogWindow.this.setVisible(false);//al cancelar hago q ya no sea visible
 			}
 		});
 		buttonsPanel.add(cancelButton);
@@ -85,8 +90,8 @@ class MyDialogWindow extends JDialog {
 
 		setPreferredSize(new Dimension(500, 200));
 		pack();
-		setResizable(false);
-		setVisible(false);
+		setResizable(false);//no permite al usuario agrandar la ventana
+		setVisible(false);//en el constructor no se hace visible todavia
 	}
 
 	public int open(List<Dish> dishes) {
@@ -94,6 +99,11 @@ class MyDialogWindow extends JDialog {
 		// update the comboxBox model -- if you always use the same no
 		// need to update it, you can initialize it in the constructor.
 		//
+		/*
+		 * en este ejemplo los datos q saca el dialog son siempre los mismos platos per oen nuestra practica
+		 * los datos cambian si cambio el fichero y hay q hacerlo como en las prox 3 lineas. Hay q ponerlas en nuestro open 
+		 * del jdialog:
+		 */
 		_dishesModel.removeAllElements();
 		for (Dish v : dishes)
 			_dishesModel.addElement(v);
@@ -104,7 +114,7 @@ class MyDialogWindow extends JDialog {
 		//
 		setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
 
-		setVisible(true);
+		setVisible(true);//aqui se para para q el usuario interactue, se hace visible aqui, NO EN LA CONSTRUCTORA para que esté refrescada
 		return _status;
 	}
 
