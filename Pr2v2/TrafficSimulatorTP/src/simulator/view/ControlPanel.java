@@ -5,9 +5,11 @@ import java.awt.Component;
 import simulator.control.Controller;
 
 public class ControlPanel extends Component {
-
-	public ControlPanel(Controller _ctrl) {
-		// TODO Auto-generated constructor stub
+	Controller _ctrl;
+	public ControlPanel(Controller ctrl) {
+		_ctrl = ctrl;
 	}
+	//toolBarExample
+	//ejemploJFileChooser
 
 }
