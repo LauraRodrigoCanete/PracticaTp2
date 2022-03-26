@@ -47,25 +47,27 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	
 	
 	public StatusBar(List<Event>events) {
-		super();
 		_events=events;
 		_time=1;
 		initGUI();
 	}
 	public void initGUI() {
-        JPanel p = new JPanel(new BorderLayout());
-		JFrame f = new JFrame();
-		f.setContentPane(p);
+		setLayout(new BorderLayout());
+        JPanel mainPanel = new JPanel();
+        
+        //JTable table = new JTable();
 		
 		JLabel l1= new JLabel("Time: "+String.valueOf(_time));
-		JLabel l2= new JLabel("Event Added("+_events.get(_time-1).toString()+")");
+		JLabel l2= new JLabel("Event Added("+_events.get(0).toString()+")");
 		
 		
-		p.add(l1, BorderLayout.WEST);
-		p.add(l2, BorderLayout.EAST);
+		mainPanel.add(l1, BorderLayout.WEST);
+		mainPanel.add(l2, BorderLayout.EAST);
 
+		
+		this.add(mainPanel);
 		//f.add(p);
-		f.setSize(20, 300);
+		//f.setSize(20, 300);
 
 		
 		
@@ -73,12 +75,16 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(700, 300);
-		//pack();
+		//this.pack();
 		setVisible(true);
 	}
 	public void setEventsList(List<Event> events) {
 		_events = events;
 		//fireTableDataChanged();
+	}
+	public void update(List<Event> events) {
+		_events = events;
+		repaint();
 	}
 	public static void main(String[] args) {
 
@@ -103,25 +109,28 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		update(events);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		// TODO Auto-generated method stub
-		
+		update(events);
+
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		update(events);
+
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		update(events);
+
 	}
 
 	@Override
