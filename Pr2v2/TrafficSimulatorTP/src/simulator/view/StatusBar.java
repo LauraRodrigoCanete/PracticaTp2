@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
@@ -38,6 +39,9 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 
 	// this is what we show in the table
 	// esto es lo que mostramos en la table
+
+ 
+	
 	private List<Event> _events;
 	private int _time;
 	
@@ -49,8 +53,9 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		initGUI();
 	}
 	public void initGUI() {
-		JFrame f = new JFrame();
         JPanel p = new JPanel(new BorderLayout());
+		JFrame f = new JFrame();
+		f.setContentPane(p);
 		
 		JLabel l1= new JLabel("Time: "+String.valueOf(_time));
 		JLabel l2= new JLabel("Event Added("+_events.get(_time-1).toString()+")");
@@ -59,9 +64,8 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		p.add(l1, BorderLayout.WEST);
 		p.add(l2, BorderLayout.EAST);
 
-		f.add(p);
+		//f.add(p);
 		f.setSize(20, 300);
-		setVisible(true);
 
 		
 		
