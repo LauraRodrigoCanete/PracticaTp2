@@ -47,20 +47,21 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	}
 
 	public void paintComponent(Graphics graphics) {
+		//estas cuatro lineas copiarlas igual en el otro mapa
 		super.paintComponent(graphics);
 		Graphics2D g = (Graphics2D) graphics;
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);//para tener mas definicion
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
 		// clear with a background color
-		g.setColor(_BG_COLOR);
+		g.setColor(_BG_COLOR);//no hace falta, por defecto sale blanco
 		g.clearRect(0, 0, getWidth(), getHeight());
 
 		if (_map == null || _map.getJunctions().size() == 0) {
 			g.setColor(Color.red);
 			g.drawString("No map yet!", getWidth() / 2 - 50, getHeight() / 2);
 		} else {
-			updatePrefferedSize();
+			updatePrefferedSize();//no hace falta pq las coordenadas no se van a salir de la pantalla, esto es para redimensionarlo entonces
 			drawMap(g);
 		}
 	}
@@ -80,6 +81,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 			int x2 = r.getDest().getX();
 			int y2 = r.getDest().getY();
 
+			//EN EL OTRO SE USA ESTO PERO PARA LOS CIRCULOS
 			// choose a color for the arrow depending on the traffic light of the road
 			Color arrowColor = _RED_LIGHT_COLOR;
 			int idx = r.getDest().getGreenLightIndex();
@@ -171,6 +173,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	// This method draws a line from (x1,y1) to (x2,y2) with an arrow.
 	// The arrow is of height h and width w.
 	// The last two arguments are the colors of the arrow and the line
+	//ESTO NI MIRARLO, ES PARA PINTAR LAS FLECHAS NO RECTAS
 	private void drawLineWithArrow(//
 			Graphics g, //
 			int x1, int y1, //
