@@ -12,6 +12,7 @@ import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 public class JunctionsTableModel extends AbstractTableModel implements TrafficSimObserver {
+	
 	private List<Junction> _junctions;
 	private Controller controller;
 	private String[] _colNames = { "Id", "Green", "Queues"};

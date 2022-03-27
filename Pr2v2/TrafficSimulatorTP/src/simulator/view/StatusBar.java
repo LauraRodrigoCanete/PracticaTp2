@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
@@ -38,30 +39,35 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 
 	// this is what we show in the table
 	// esto es lo que mostramos en la table
+
+ 
+	
 	private List<Event> _events;
 	private int _time;
 	
 	
 	public StatusBar(List<Event>events) {
-		super();
 		_events=events;
 		_time=1;
 		initGUI();
 	}
 	public void initGUI() {
-		JFrame f = new JFrame();
-        JPanel p = new JPanel(new BorderLayout());
+		setLayout(new BorderLayout());
+        JPanel mainPanel = new JPanel();
+        
+        //JTable table = new JTable();
 		
 		JLabel l1= new JLabel("Time: "+String.valueOf(_time));
-		JLabel l2= new JLabel("Event Added("+_events.get(_time-1).toString()+")");
+		JLabel l2= new JLabel("Event Added("+_events.get(0).toString()+")");
 		
 		
-		p.add(l1, BorderLayout.WEST);
-		p.add(l2, BorderLayout.EAST);
+		mainPanel.add(l1, BorderLayout.WEST);
+		mainPanel.add(l2, BorderLayout.EAST);
 
-		f.add(p);
-		f.setSize(20, 300);
-		setVisible(true);
+		
+		this.add(mainPanel);
+		//f.add(p);
+		//f.setSize(20, 300);
 
 		
 		
@@ -69,12 +75,16 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(700, 300);
-		//pack();
+		//this.pack();
 		setVisible(true);
 	}
 	public void setEventsList(List<Event> events) {
 		_events = events;
 		//fireTableDataChanged();
+	}
+	public void update(List<Event> events) {
+		_events = events;
+		repaint();
 	}
 	public static void main(String[] args) {
 
@@ -99,25 +109,28 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		update(events);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		// TODO Auto-generated method stub
-		
+		update(events);
+
 	}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		update(events);
+
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		update(events);
+
 	}
 
 	@Override
