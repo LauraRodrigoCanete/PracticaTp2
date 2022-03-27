@@ -25,8 +25,8 @@ public class Controller {
 		if(sim==null)
 			throw new IllegalArgumentException("Invalid traffic simulator");
 		trafficSimulator=sim;
-		if(eventsFactory==null)
-			throw new IllegalArgumentException("Invalid events factory");
+		//if(eventsFactory==null )
+			//throw new IllegalArgumentException("Invalid events factory");
 		this.eventsFactory=eventsFactory;
 	}
 	

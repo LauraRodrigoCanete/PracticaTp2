@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -33,6 +35,7 @@ import simulator.model.DequeuingStrategy;
 import simulator.model.Event;
 import simulator.model.LightSwitchingStrategy;
 import simulator.model.TrafficSimulator;
+import simulator.view.MainWindow;
 
 public class Main {
 
@@ -40,6 +43,7 @@ public class Main {
 	private static String _inFile = null;
 	private static String _outFile = null;
 	private static String _ticks = null;
+	private static Mode _mode = null;
 	private static Factory<Event> _eventsFactory = null;
 	private static int _timeLimit;
 
@@ -55,6 +59,7 @@ public class Main {
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
 			parseHelpOption(line, cmdLineOptions);
+			parseModeOption(line);
 			parseInFileOption(line);
 			parseOutFileOption(line);
 			parseTicksOption(line);
@@ -86,6 +91,8 @@ public class Main {
 		cmdLineOptions.addOption(Option.builder("h").longOpt("help").desc("Print this message").build());
 		cmdLineOptions.addOption(
 				Option.builder("t").longOpt("ticks").hasArg().desc("Ticks to the simulator’s main loop (default value is 10)").build());
+		cmdLineOptions.addOption(
+				Option.builder("m").longOpt("mode").hasArg().desc("Game mode (default value GUI)").build());
 
 		
 		return cmdLineOptions;
@@ -101,11 +108,12 @@ public class Main {
 
 	private static void parseInFileOption(CommandLine line) throws ParseException {
 		_inFile = line.getOptionValue("i");
-		if (_inFile == null) {
+		if (_inFile == null && _mode == Mode.CONSOLE) {
 			throw new ParseException("An events file is missing");
 		}
 	}
 
+	//se ignora en gui pero tampoco pasa nada si entra aqui
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
 		_outFile = line.getOptionValue("o");
 	}
@@ -118,6 +126,16 @@ public class Main {
 			
 		} catch ( Exception e) {
 			throw new ParseException("Invalid value for time limit: + _ticks");
+		}
+	}
+	
+	private static void parseModeOption(CommandLine line) throws ParseException {
+		String mode = line.getOptionValue("m", Mode.GUI.toString());
+		_mode = ((mode.toUpperCase() == Mode.CONSOLE.toString()) ? Mode.CONSOLE : Mode.GUI);
+		
+		if(!mode.toUpperCase().contentEquals(Mode.CONSOLE.toString()) && 
+				!mode.toUpperCase().contentEquals(Mode.GUI.toString())) {
+			throw new ParseException("The game mode is not valid");
 		}
 	}
 
@@ -156,11 +174,36 @@ public class Main {
 		controller.loadEvents(in);
 		controller.run(_timeLimit, out);
 	}
+	
+	private static void startGuiMode() throws IOException {
+		TrafficSimulator modelo = new TrafficSimulator();
+		Controller control = new Controller(modelo,  _eventsFactory);
+
+		if(_inFile != null) {
+			FileInputStream in = (new FileInputStream(new File(_inFile)));
+			control.loadEvents(in);
+		}
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				new MainWindow(control);
+			}
+		});
+
+		
+	}
 
 	private static void start(String[] args) throws IOException {
 		initFactories();
 		parseArgs(args);
-		startBatchMode();
+		switch(_mode) {
+			case CONSOLE:
+				startBatchMode();
+				break;
+			case GUI:
+				startGuiMode();
+		}
 	}
 
 	// example command lines:

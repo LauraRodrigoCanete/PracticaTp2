@@ -26,6 +26,7 @@ import javax.swing.border.TitledBorder;
 import extra.jtable.EventEx;
 import extra.jtable.EventsTableModel;
 import extra.jtable.JTableExamples;
+import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.Event;
 import simulator.model.Road;
@@ -45,12 +46,16 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	private List<Event> _events;
 	private int _time;
 	
+	//BEÑI TE HE AÑADIDO ESTO PARA LO DEL MAIN WINDOW UN KISS
+	public StatusBar(Controller _ctrl) {
+	}
 	
 	public StatusBar(List<Event>events) {
 		_events=events;
 		_time=1;
 		initGUI();
 	}
+	
 	public void initGUI() {
 		setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel();
