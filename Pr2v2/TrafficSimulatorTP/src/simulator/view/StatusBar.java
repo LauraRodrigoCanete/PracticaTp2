@@ -48,12 +48,15 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	
 	//BEÑI TE HE AÑADIDO ESTO PARA LO DEL MAIN WINDOW UN KISS
 	public StatusBar(Controller _ctrl) {
+		
+		_ctrl.addObserver(this);
 	}
 	
 	public StatusBar(List<Event>events) {
 		_events=events;
 		_time=1;
 		initGUI();
+		
 	}
 	
 	public void initGUI() {
@@ -81,7 +84,6 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(700, 300);
 		//this.pack();
-		setVisible(true);
 	}
 	public void setEventsList(List<Event> events) {
 		_events = events;

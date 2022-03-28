@@ -71,4 +71,10 @@ public class Controller {
 		p.println("]");
 		p.println("}");
 	}
+
+	public void run(int ticks) {
+		for(int i=0;i<ticks;i++) {
+			trafficSimulator.advance();
+		}
+	}
 }

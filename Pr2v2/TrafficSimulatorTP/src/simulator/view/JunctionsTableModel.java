@@ -27,12 +27,15 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 		_junctions = junctions;
 		fireTableDataChanged();	
 	}
+	
 	public boolean isCellEditable(int row, int column) {//no puedes modificar el dato de la casilla
 		return false;
 	}
+	
 	public String getColumnName(int col) {
 		return _colNames[col];
 	}
+	
 	@Override
 	public int getRowCount() {
 		return _junctions == null ? 0 : _junctions.size();//no puedo hacer null.size()

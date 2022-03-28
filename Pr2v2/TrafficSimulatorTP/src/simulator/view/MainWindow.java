@@ -28,9 +28,9 @@ public class MainWindow extends JFrame{
 	
 	private void initGUI() {
 		JPanel mainPanel = new JPanel(new BorderLayout());
-		this.setContentPane(mainPanel);
+		this.setContentPane(mainPanel);//es para cambiarle el nombre al ContentPane (solo se usa en JFrames)
 		mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
-		mainPanel.add(new StatusBar(_ctrl),BorderLayout.PAGE_END);
+		mainPanel.add(new StatusBar(_ctrl), BorderLayout.PAGE_END);
 		JPanel viewsPanel = new JPanel(new GridLayout(1, 2));
 		mainPanel.add(viewsPanel, BorderLayout.CENTER);
 		JPanel tablesPanel = new JPanel();
@@ -65,6 +65,8 @@ public class MainWindow extends JFrame{
 		mapsPanel.add(mapByRoadComponentView);
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.pack();
+		
+		//este setVisible ya hace visibles todos los componentes que contiene, los paneles y las tablas y tal son componentes intermedios para agrupar, tienen sentido dentro de un jframe
 		this.setVisible(true);
 	}
 	
