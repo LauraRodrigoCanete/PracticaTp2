@@ -232,7 +232,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 		update(map);
 	}
 
-	@Override
+	@Override 
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		update(map);
 	}
