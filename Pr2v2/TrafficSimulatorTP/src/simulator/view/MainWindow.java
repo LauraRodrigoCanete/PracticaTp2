@@ -72,13 +72,10 @@ public class MainWindow extends JFrame{
 	
 	private JPanel createViewPanel(JComponent c, String title) {
 		JPanel p = new JPanel( new BorderLayout() );
-		// TODO add a framed border to p with title
-		/*
-		 * algo así?
-		 * this.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createLineBorder(Color.red, 2), "Viewer",
+		p.setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createLineBorder(Color.black, 2), title,
 				TitledBorder.LEFT, TitledBorder.TOP));
-		 */
+		p.add(c);
 		p.add(new JScrollPane(c));
 		return p;
 	}

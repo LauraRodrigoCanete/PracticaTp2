@@ -2,6 +2,7 @@ package simulator.model;
 
 import java.awt.RenderingHints;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -135,7 +136,7 @@ public class Junction extends SimulatedObject{
 	}
 
 	public List<Road> getInRoads() {
-		return entryRoadsList;//poner unmodif
+		return Collections.unmodifiableList(entryRoadsList);
 	}
 	
 }

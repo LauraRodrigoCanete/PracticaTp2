@@ -42,7 +42,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private Image _car;
 	
 	public MapByRoadComponent(Controller ctrl) {
-		setPreferredSize (new Dimension (300, 200));
+		setPreferredSize (new Dimension (300, 200));//cambiamos
 		initGUI();
 		ctrl.addObserver(this);
 	}
@@ -92,13 +92,14 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			int y = (i+1)*50;
 			
 			//dibujamos la carretera:
+			g.setColor(Color.BLACK);
 			g.drawLine(x1, y, x2, y);
 			
 			//dibujamos el cruce origen:
 			g.setColor(_JUNCTION_COLOR);
 			g.fillOval(x1 - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
 			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString(r.getSrc().getId(), x1, y -6);
+			g.drawString(r.getSrc().getId(), x1-2, y - 8);
 		
 			//dibujamos el cruce destino segun el semaforo:
 			Color juncColor = _RED_LIGHT_COLOR;
@@ -110,18 +111,18 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			g.setColor(juncColor);
 			g.fillOval(x2 - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
 			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString(r.getSrc().getId(), x2, y -6);
+			g.drawString(r.getSrc().getId(), x2-2, y - 8);
 		
 			//dibujamos los vehiculos
 			for(Vehicle v: r.getVehicles()) {
 				int A = v.getLocation();
 				int B = r.getLength();
 				int x = x1 + (int) ((x2 - x1) * ((double) A / (double) B));
-				g.drawImage(_car, x, y, 16, 16, this);
+				g.drawImage(_car, x, y -10, 16, 16, this);
 				
 				int vLabelColor = (int) (25.0 * (10.0 - (double) v.getContClass()));
 				g.setColor(new Color(0, vLabelColor, 0));
-				g.drawString(v.getId(), x, y - 6);
+				g.drawString(v.getId(), x, y - 8);
 			}
 			
 			//dibujamos el id de las carreteras
@@ -129,11 +130,11 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			g.drawString(r.getId(), x1 - 30, y);
 			
 			//weather
-			g.drawImage(_weatherImages.get(r.getWeather()), x2 + 3, y, 32, 32, this);
+			g.drawImage(_weatherImages.get(r.getWeather()), x2 + 3, y-15, 32, 32, this);
 			
 			//contamination
 			int c = (int) Math.floor(Math.min((double) r.getTotalCO2()/(1.0 + (double) r.getContLimit()),1.0) / 0.19);
-			g.drawImage(_contImages.get(c), x2 + 37, y, 32, 32, this);
+			g.drawImage(_contImages.get(c), x2 + 37, y-15, 32, 32, this);
 		}
 
 	}

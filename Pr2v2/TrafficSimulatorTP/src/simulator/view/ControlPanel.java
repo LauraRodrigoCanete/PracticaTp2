@@ -3,8 +3,10 @@ package simulator.view;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
@@ -20,9 +22,13 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
+import simulator.misc.Pair;
 import simulator.model.Event;
+import simulator.model.Road;
 import simulator.model.RoadMap;
+import simulator.model.SetWeatherEvent;
 import simulator.model.TrafficSimObserver;
+import simulator.model.Weather;
 
 public class ControlPanel extends JPanel implements TrafficSimObserver{
 	
@@ -31,9 +37,17 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	private JToolBar barra;
 	private JButton stop;
 	private JButton run;
+	private JButton weather;
 	private JSpinner ticks;
 	
+	private List<Road> _roads;//estas cosas habra q actualizarlas en los metodos de observador
+	private List<Event> _events;
+	private int _time;
+	
 	public ControlPanel(Controller ctrl) {
+		_roads = null;
+		_events = null;
+		_time = 0;
 		_stopped = false;
 		_ctrl = ctrl;
 		initGUI();
@@ -41,6 +55,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	}
 	
 	private void initGUI() {
+		weather = new JButton();
 		run = new JButton();
 		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
 		stop = new JButton();
@@ -48,9 +63,29 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		this.setLayout(new BorderLayout());//viene por defecto
 		this.add(barra, BorderLayout.NORTH);
 		
+		//boton weather
+		weather.setActionCommand("weather");//no sirve de nada, ya está por defecto
+		weather.setToolTipText("Change the weather conditions");
+		weather.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				ChangeWeatherDialog dialog = new ChangeWeatherDialog(getPreviousFrame());
+
+				//sin esta linea no es visible, se hace visible en el open
+				int status = dialog.open(_roads);
+				if (status == 0) {
+					System.out.println("Canceled");
+				} else {
+					List<Pair<String,Weather>> pairs = new ArrayList<Pair<String,Weather>>();
+					pairs.add(dialog.getRoadandWeather());
+					_events.add(new SetWeatherEvent(_time + dialog.getTicks(), pairs));
+				}
+			}
+		});
+		weather.setIcon(new ImageIcon("resources/icons/weather.png"));
+		barra.add(weather);
 		
 		//boton run
-		run.setActionCommand("run");//no sirve de nada, ya está por defecto
+		run.setActionCommand("run");
 		run.setToolTipText("Run the program");
 		run.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -113,7 +148,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	}
 	
 	private void enableToolBar(boolean b) {
-		barra.setEnabled(b);
+		//poner boton por boton pq toda la toolbar de golpe no funciona bien
+		run.setEnabled(b);
 		stop.setEnabled(true);
 	}
 
@@ -121,6 +157,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		_stopped = true;
 	}
 
+	/*
+	 * //lo tengo q hacer fuera para q sea un metodo 
+	 * de la clase JPnanel pq dentro de la clase anonima el this cambia y 
+	 * no me deja usar el metodo
+	 */
+	private Frame getPreviousFrame() {
+		return (Frame) SwingUtilities.getWindowAncestor(this);
+	}
+	
 	//en estos metodos necesitamos ir reasignando las listas de vehiculos, junc... q tengamos como atributos
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
