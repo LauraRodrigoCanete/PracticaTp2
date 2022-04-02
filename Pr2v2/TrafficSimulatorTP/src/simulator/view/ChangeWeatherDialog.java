@@ -74,7 +74,7 @@ public class ChangeWeatherDialog extends JDialog{
 			_weathersModel.addElement(w.toString());
 		}
 		
-		_ticks = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
+		_ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
 		_ticks.setMaximumSize(new Dimension(80, 40));
 		_ticks.setMinimumSize(new Dimension(80, 40));
 		_ticks.setPreferredSize(new Dimension(80, 40));

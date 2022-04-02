@@ -1,10 +1,10 @@
 package simulator.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import extra.jtable.EventEx;
 import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.Road;
@@ -21,7 +21,7 @@ public class RoadsTableModel extends AbstractTableModel implements TrafficSimObs
 	        "Max. Speed", "Speed Limit", "Total CO2", "CO2 Limit" };
 
 	public RoadsTableModel(Controller controller) {
-		_roads=null;	
+		_roads=new ArrayList<>();
 		this.controller = controller;
 		controller.addObserver(this);
 	}

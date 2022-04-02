@@ -1,10 +1,10 @@
 package simulator.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import extra.jtable.EventEx;
 import simulator.control.Controller;
 import simulator.model.Event;
 import simulator.model.Junction;
@@ -18,7 +18,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 	private String[] _colNames = { "Id", "Green", "Queues"};
 	
 	public JunctionsTableModel(Controller controller) {
-		_junctions=null;	
+		_junctions=new ArrayList<>();	
 		this.controller = controller;
 		controller.addObserver(this);
 	}

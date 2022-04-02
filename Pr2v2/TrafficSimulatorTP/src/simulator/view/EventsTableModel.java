@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -16,7 +17,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	private String[] _colNames = { "Time", "Desc" };
 
 	public EventsTableModel(Controller controller) {
-		_events=null;
+		_events = new ArrayList<>();
 		this.controller = controller;
 		controller.addObserver(this);
 		//esto no se hace visible, ya hacemos visible el JFrame entero

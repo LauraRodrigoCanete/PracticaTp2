@@ -1,12 +1,12 @@
 package simulator.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
 import simulator.control.Controller;
 import simulator.model.Event;
-import simulator.model.Junction;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 import simulator.model.Vehicle;
@@ -19,7 +19,7 @@ public class VehiclesTableModel extends AbstractTableModel implements TrafficSim
 	private String[] _colNames = { "Id", "Location", "Itinerary", "CO2 Class", "Max. Speed", "Speed", "Total CO2", "Distance" };
 
 	public VehiclesTableModel(Controller controller) {
-		_vehicles=null;
+		_vehicles=new ArrayList<>();
 		this.controller = controller;
 		controller.addObserver(this);
 	}

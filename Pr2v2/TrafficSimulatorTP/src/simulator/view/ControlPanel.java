@@ -1,7 +1,6 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -12,8 +11,6 @@ import java.util.List;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -45,8 +42,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	private int _time;
 	
 	public ControlPanel(Controller ctrl) {
-		_roads = null;
-		_events = null;
+		_roads = new ArrayList<>();
+		_events = new ArrayList<>();;
 		_time = 0;
 		_stopped = false;
 		_ctrl = ctrl;
