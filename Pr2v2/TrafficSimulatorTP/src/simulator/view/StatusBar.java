@@ -37,6 +37,7 @@ import simulator.model.Weather;
 
 public class StatusBar extends JPanel implements TrafficSimObserver {
 	private Border _defaultBorder = BorderFactory.createLineBorder(Color.red, 1);
+	private static final String WHITE_SPACE= "                                                                                                                                                                                                                                                         ";
 
 	// this is what we show in the table
 	// esto es lo que mostramos en la table
@@ -46,10 +47,15 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	private List<Event> _events;
 	private int _time;
 	
-	//BEÑI TE HE AÑADIDO ESTO PARA LO DEL MAIN WINDOW UN KISS
+	//BEÑI TE HE AÑADIDO ESTO PARA LO DEL MAIN WINDOW UN KISS 
+	//THANJK U LAURI
+	
 	public StatusBar(Controller _ctrl) {
-		
+		_events=null;
+		_time=1;
 		_ctrl.addObserver(this);
+		initGUI();
+
 	}
 	
 	public StatusBar(List<Event>events) {
@@ -66,11 +72,20 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
         //JTable table = new JTable();
 		
 		JLabel l1= new JLabel("Time: "+String.valueOf(_time));
-		JLabel l2= new JLabel("Event Added("+_events.get(0).toString()+")");
-		
-		
+		JLabel l2=null;
+		if(_events.size()!=0)
+		l2= new JLabel("Event Added("+_events.get(0).toString()+")");
+		else
+	    l2= new JLabel("Event Added()");
+
+		JLabel l3 = new JLabel("                ");
+		JLabel l4 = new JLabel(WHITE_SPACE);
 		mainPanel.add(l1, BorderLayout.WEST);
+		mainPanel.add(l3);
+
 		mainPanel.add(l2, BorderLayout.EAST);
+		mainPanel.add(l3, BorderLayout.EAST);
+
 
 		
 		this.add(mainPanel);
@@ -82,7 +97,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		
 
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(700, 300);
+		//this.setSize(700, 300);
 		//this.pack();
 	}
 	public void setEventsList(List<Event> events) {

@@ -65,10 +65,12 @@ public class ChangeWeatherDialog extends JDialog{
 
 		_roadsModel = new DefaultComboBoxModel<>();
 		_roads = new JComboBox<>(_roadsModel);
+		viewsPanel.add( new JLabel("Road: "));
 		viewsPanel.add(_roads);
 		
 		_weathersModel = new DefaultComboBoxModel<>();
 		_weathers = new JComboBox<>(_weathersModel);
+		viewsPanel.add( new JLabel("Weather: "));
 		viewsPanel.add(_weathers);
 		for(Weather w: Weather.values()) {
 			_weathersModel.addElement(w.toString());

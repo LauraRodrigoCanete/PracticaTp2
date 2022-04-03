@@ -23,8 +23,10 @@ import simulator.misc.Pair;
 import simulator.model.Event;
 import simulator.model.Road;
 import simulator.model.RoadMap;
+import simulator.model.SetContClassEvent;
 import simulator.model.SetWeatherEvent;
 import simulator.model.TrafficSimObserver;
+import simulator.model.Vehicle;
 import simulator.model.Weather;
 
 public class ControlPanel extends JPanel implements TrafficSimObserver{
@@ -34,15 +36,18 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	private JToolBar barra;
 	private JButton stop;
 	private JButton run;
+	private JButton contClass;
 	private JButton weather;
 	private JSpinner ticks;
 	
 	private List<Road> _roads;//estas cosas habra q actualizarlas en los metodos de observador
+	private List<Vehicle> _vehicles;
 	private List<Event> _events;
 	private int _time;
 	
 	public ControlPanel(Controller ctrl) {
 		_roads = new ArrayList<>();
+		_vehicles = new ArrayList<>();
 		_events = new ArrayList<>();;
 		_time = 0;
 		_stopped = false;
@@ -52,6 +57,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	}
 	
 	private void initGUI() {
+		contClass = new JButton();
 		weather = new JButton();
 		run = new JButton();
 		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
@@ -60,6 +66,30 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		this.setLayout(new BorderLayout());//viene por defecto
 		this.add(barra, BorderLayout.NORTH);
 		
+		//boton contClass
+		
+		contClass.setActionCommand("contClass");//no sirve de nada, ya está por defecto
+		contClass.setToolTipText("Change contamination class");
+		contClass.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent event) {
+						ChangeContDialog dialog = new ChangeContDialog(getPreviousFrame());
+
+						//sin esta linea no es visible, se hace visible en el open
+						int status = dialog.open(_vehicles);
+						if (status == 0) {
+							System.out.println("Canceled");
+						} else {
+							List<Pair<String,Integer>> pairs = new ArrayList<Pair<String,Integer>>();
+							pairs.add(dialog.getVehicleandClass());
+							_events.add(new SetContClassEvent(_time + dialog.getTicks(), pairs));
+						}
+					}
+				});
+				contClass.setIcon(new ImageIcon("resources/icons/co2class.png"));
+				barra.add(contClass);
+		
+			
+			
 		//boton weather
 		weather.setActionCommand("weather");//no sirve de nada, ya está por defecto
 		weather.setToolTipText("Change the weather conditions");
