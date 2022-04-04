@@ -28,9 +28,9 @@ import simulator.model.Weather;
 	public class ChangeContDialog extends JDialog{
 		private int _status;
 		private JComboBox<String> _vehicles;
-		private JComboBox<String> _co2Class;
+		private JComboBox<Integer> _co2Class;
 		private DefaultComboBoxModel<String> _vehiclesModel;
-		private DefaultComboBoxModel<String> _co2ClassModel;//este modelo refresca automaticamente a diferencia del jtablemodel creado por nosotros
+		private DefaultComboBoxModel<Integer> _co2ClassModel;//este modelo refresca automaticamente a diferencia del jtablemodel creado por nosotros
 		private JSpinner _ticks;
 		
 		public ChangeContDialog(Frame frame) {
@@ -76,7 +76,7 @@ import simulator.model.Weather;
 			viewsPanel.add( new JLabel("CO2 Class: "));
 			viewsPanel.add(_co2Class);
 			for(int i=0;i<=10;i++) {
-				_co2ClassModel.addElement(String.valueOf(i));
+				_co2ClassModel.addElement((i));
 			}
 			
 			_ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
@@ -135,7 +135,7 @@ import simulator.model.Weather;
 		}
 
 		public Pair<String, Integer> getVehicleandClass() {
-			return new Pair((String) _vehiclesModel.getSelectedItem(), String.valueOf( (String) _co2ClassModel.getSelectedItem()));
+			return new Pair((String) _vehiclesModel.getSelectedItem(),  _co2ClassModel.getSelectedItem());
 		}
 		
 		public int getTicks() {
