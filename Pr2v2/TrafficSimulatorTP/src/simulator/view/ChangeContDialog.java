@@ -26,9 +26,9 @@
 	public class ChangeContDialog extends JDialog{
 		private int _status;
 		private JComboBox<String> _vehicles;
-		private JComboBox<String> _co2Class;
+		private JComboBox<Integer> _co2Class;
 		private DefaultComboBoxModel<String> _vehiclesModel;
-		private DefaultComboBoxModel<String> _co2ClassModel;//este modelo refresca automaticamente a diferencia del jtablemodel creado por nosotros
+		private DefaultComboBoxModel<Integer> _co2ClassModel;//este modelo refresca automaticamente a diferencia del jtablemodel creado por nosotros
 		private JSpinner _ticks;
 		
 		public ChangeContDialog(Frame frame) {
@@ -73,7 +73,7 @@
 			viewsPanel.add( new JLabel("CO2 Class: "));
 			viewsPanel.add(_co2Class);
 			for(int i=0;i<=10;i++) {
-				_co2ClassModel.addElement(String.valueOf(i));
+				_co2ClassModel.addElement((i));
 			}
 			
 			_ticks = new JSpinner(new SpinnerNumberModel(1, 1, 10000, 1));
@@ -127,12 +127,14 @@
 			//
 			setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
 
-			setVisible(true);//aqui se para para q el usuario interactue, se hace visible aqui, NO EN LA CONSTRUCTORA para que esté refrescada
+			setVisible(true);//aqui se para para q el usuario interactue, se hace visible aqui, NO EN LA CONSTRUCTORA para que estï¿½ refrescada
 			return _status;
 		}
 
 		public Pair<String, Integer> getVehicleandClass() {
-			return new Pair<String, Integer>((String) _vehiclesModel.getSelectedItem(), ( (String) _co2ClassModel.getSelectedItem()));
+=======
+			return new Pair((String) _vehiclesModel.getSelectedItem(),  _co2ClassModel.getSelectedItem());
+>>>>>>> 77f2f716f2f88f842454d4d3b462fb98de1cb388
 		}
 		
 		public int getTicks() {
