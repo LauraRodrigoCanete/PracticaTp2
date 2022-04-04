@@ -45,7 +45,7 @@ public class ChangeWeatherDialog extends JDialog{
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		setContentPane(mainPanel);
 
-		JLabel helpMsg = new JLabel("Schedule an event to change the weather of a road after a given number of simulation ticks from now");
+		JLabel helpMsg = new JLabel("<html>Schedule an event to change the weather of a road after a given number of simulation ticks from now</html>");
 		helpMsg.setAlignmentX(CENTER_ALIGNMENT);
 
 		mainPanel.add(helpMsg);

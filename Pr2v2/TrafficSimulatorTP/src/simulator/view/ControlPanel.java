@@ -71,27 +71,27 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		contClass.setActionCommand("contClass");//no sirve de nada, ya está por defecto
 		contClass.setToolTipText("Change contamination class");
 		contClass.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent event) {
-						ChangeContDialog dialog = new ChangeContDialog(getPreviousFrame());
+			public void actionPerformed(ActionEvent event) {
+				ChangeContDialog dialog = new ChangeContDialog(getPreviousFrame());
 
-						//sin esta linea no es visible, se hace visible en el open
-						int status = dialog.open(_vehicles);
-						if (status == 0) {
-							System.out.println("Canceled");
-						} else {
-							List<Pair<String,Integer>> pairs = new ArrayList<Pair<String,Integer>>();
-							pairs.add(dialog.getVehicleandClass());
-							_events.add(new SetContClassEvent(_time + dialog.getTicks(), pairs));
-						}
-					}
-				});
-				contClass.setIcon(new ImageIcon("resources/icons/co2class.png"));
-				barra.add(contClass);
-		
-			
-			
+				//sin esta linea no es visible, se hace visible en el open
+				int status = dialog.open(_vehicles);
+				if (status == 0) {
+					System.out.println("Canceled");
+				} else {
+					List<Pair<String,Integer>> pairs = new ArrayList<Pair<String,Integer>>();
+					pairs.add(dialog.getVehicleandClass());
+					_events.add(new SetContClassEvent(_time + dialog.getTicks(), pairs));
+				}
+			}
+		});
+		contClass.setIcon(new ImageIcon("resources/icons/co2class.png"));
+		barra.add(contClass);
+
+
+
 		//boton weather
-		weather.setActionCommand("weather");//no sirve de nada, ya está por defecto
+		weather.setActionCommand("weather");
 		weather.setToolTipText("Change the weather conditions");
 		weather.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {

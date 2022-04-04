@@ -20,9 +20,7 @@
 	import javax.swing.SpinnerNumberModel;
 
 	import simulator.misc.Pair;
-	import simulator.model.Road;
-import simulator.model.Vehicle;
-import simulator.model.Weather;
+	import simulator.model.Vehicle;
 
 
 	public class ChangeContDialog extends JDialog{
@@ -48,12 +46,11 @@ import simulator.model.Weather;
 			mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 			setContentPane(mainPanel);
 
-			JLabel helpMsg = new JLabel("Schedule an event to change the CO2 class of a vehilce after a given number of simulation ticks from now");
+			JLabel helpMsg = new JLabel("Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now");
 			helpMsg.setAlignmentX(CENTER_ALIGNMENT);
 
 			mainPanel.add(helpMsg);
 
-			//para que no salga pegado al "Select your favorite"
 			mainPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
 			JPanel viewsPanel = new JPanel();
@@ -124,8 +121,8 @@ import simulator.model.Weather;
 			for (Vehicle v : vehicles) {
 				_vehiclesModel.addElement(v.getId());
 			}
-			// You can chenge this to place the dialog in the middle of the parent window.
-			// It can be done using uing getParent().getWidth, this.getWidth(),
+			// You can change this to place the dialog in the middle of the parent window.
+			// It can be done using using getParent().getWidth, this.getWidth(),
 			// getParent().getHeight, and this.getHeight(), etc.
 			//
 			setLocation(getParent().getLocation().x + 10, getParent().getLocation().y + 10);
@@ -135,7 +132,7 @@ import simulator.model.Weather;
 		}
 
 		public Pair<String, Integer> getVehicleandClass() {
-			return new Pair((String) _vehiclesModel.getSelectedItem(), String.valueOf( (String) _co2ClassModel.getSelectedItem()));
+			return new Pair<String, Integer>((String) _vehiclesModel.getSelectedItem(), ( (String) _co2ClassModel.getSelectedItem()));
 		}
 		
 		public int getTicks() {
