@@ -22,9 +22,9 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		_events = new ArrayList<>();
 		this.controller = controller;
 		controller.addObserver(this);
-		Graphics2D g;
-		g.setColor(Color.white);
-		g.clearRect(0, 0, getWidth(), getHeight());
+	//	Graphics2D g;
+	//	g.setColor(Color.white);
+	//	g.clearRect(0, 0, getWidth(), getHeight());
 		//esto no se hace visible, ya hacemos visible el JFrame entero
 	}
 	

@@ -39,6 +39,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	private JButton contClass;
 	private JButton weather;
 	private JSpinner ticks;
+	private JButton exit;
 	
 	//estas cosas habra q actualizarlas en los metodos de observador
 	private List<Road> _roads;
@@ -63,6 +64,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		run = new JButton();
 		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
 		stop = new JButton();
+		exit = new JButton();
 		barra = new JToolBar();
 		this.setLayout(new BorderLayout());//viene por defecto
 		this.add(barra, BorderLayout.NORTH);
@@ -150,6 +152,16 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		barra.add(Box.createGlue());
 		
 		//boton salir
+		exit.setActionCommand("exit");
+		exit.setToolTipText("exit the program");
+		exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.exit(0);
+			}
+		});
+		exit.setIcon(new ImageIcon("resources/icons/exit.png"));
+		barra.add(exit);
+		
 		
 	}
 	
@@ -178,7 +190,11 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	private void enableToolBar(boolean b) {
 		//poner boton por boton pq toda la toolbar de golpe no funciona bien
 		run.setEnabled(b);
+		exit.setEnabled(b);
+		weather.setEnabled(b);
+		contClass.setEnabled(b);
 		stop.setEnabled(true);
+
 	}
 
 	private void stop() {

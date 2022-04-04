@@ -63,7 +63,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		mainPanel.add(l1, BorderLayout.WEST);
 		mainPanel.add(l3);
 
-		mainPanel.add(l2, BorderLayout.EAST);
+		//mainPanel.add(l2, BorderLayout.EAST);
 		mainPanel.add(l3, BorderLayout.EAST);
 
 
@@ -88,7 +88,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		_events = events;
 		repaint();
 	}
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -101,7 +101,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 				new StatusBar(list);
 			}
 		});
-	}
+	}*/
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
