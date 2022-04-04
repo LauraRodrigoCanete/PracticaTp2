@@ -40,7 +40,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	private JButton weather;
 	private JSpinner ticks;
 	
-	private List<Road> _roads;//estas cosas habra q actualizarlas en los metodos de observador
+	//estas cosas habra q actualizarlas en los metodos de observador
+	private List<Road> _roads;
 	private List<Vehicle> _vehicles;
 	private List<Event> _events;
 	private int _time;
@@ -185,37 +186,44 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	}
 
 	/*
-	 * //lo tengo q hacer fuera para q sea un metodo 
-	 * de la clase JPnanel pq dentro de la clase anonima el this cambia y 
+	 * lo tengo q hacer fuera para q sea un metodo 
+	 * de la clase JPanel pq dentro de la clase anonima el this cambia y 
 	 * no me deja usar el metodo
 	 */
 	private Frame getPreviousFrame() {
 		return (Frame) SwingUtilities.getWindowAncestor(this);
 	}
 	
+	private void update(List<Road> roads, List<Vehicle> vehicles, List<Event> events, int time) {
+		_roads = roads;
+		_vehicles = vehicles;
+		_events = events;
+		_time = time;
+	}
+	
 	//en estos metodos necesitamos ir reasignando las listas de vehiculos, junc... q tengamos como atributos
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
-		
+		update(map.getRoads(), map.getVehicles(), events, time);
 	}
 	
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
-		
+		update(map.getRoads(), map.getVehicles(), events, time);
 	}
 	
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-
+		update(map.getRoads(), map.getVehicles(), events, time);
 	}
 	
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
-
+		update(map.getRoads(), map.getVehicles(), events, time);
 	}
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
-
+		update(map.getRoads(), map.getVehicles(), events, time);
 	}
 	
 	@Override

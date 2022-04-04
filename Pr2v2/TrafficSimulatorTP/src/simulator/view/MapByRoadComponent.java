@@ -42,7 +42,7 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 	private Image _car;
 	
 	public MapByRoadComponent(Controller ctrl) {
-		//setPreferredSize (new Dimension (300, 200));//cambiamos
+		//no tenemos q llamar al setpreferedsize porque en el mainwindow lo llamamos asi q se redimensiona y se quita lo q hayamos puesto aqui
 		initGUI();
 		ctrl.addObserver(this);
 	}
@@ -77,7 +77,6 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			g.setColor(Color.red);
 			g.drawString("No map yet!", getWidth() / 2 - 50, getHeight() / 2);
 		} else {
-			//updatePrefferedSize();//no hace falta pq las coordenadas no se van a salir de la pantalla, esto es para redimensionarlo entonces
 			drawMap(g);
 		}
 	}
@@ -137,20 +136,6 @@ public class MapByRoadComponent extends JComponent implements TrafficSimObserver
 			g.drawImage(_contImages.get(c), x2 + 37, y-15, 32, 32, this);
 		}
 
-	}
-
-	
-	private void updatePrefferedSize() {
-		int maxW = 200;
-		int maxH = 200;
-		for (Junction j : _map.getJunctions()) {
-			maxW = Math.max(maxW, j.getX());
-			maxH = Math.max(maxH, j.getY());
-		}
-		maxW += 20;
-		maxH += 20;
-		setPreferredSize(new Dimension(maxW, maxH));
-		setSize(new Dimension(maxW, maxH));
 	}
 
 	private Image loadImage(String img) {

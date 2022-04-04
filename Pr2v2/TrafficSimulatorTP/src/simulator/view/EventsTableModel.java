@@ -1,5 +1,7 @@
 package simulator.view;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		_events = new ArrayList<>();
 		this.controller = controller;
 		controller.addObserver(this);
+		Graphics2D g;
+		g.setColor(Color.white);
+		g.clearRect(0, 0, getWidth(), getHeight());
 		//esto no se hace visible, ya hacemos visible el JFrame entero
 	}
 	

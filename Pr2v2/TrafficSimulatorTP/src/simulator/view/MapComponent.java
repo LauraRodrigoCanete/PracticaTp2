@@ -61,7 +61,9 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 			g.setColor(Color.red);
 			g.drawString("No map yet!", getWidth() / 2 - 50, getHeight() / 2);
 		} else {
-			updatePrefferedSize();//no hace falta pq las coordenadas no se van a salir de la pantalla, esto es para redimensionarlo entonces
+			//en el otro mapa la siguiente linea no hace falta, de hecho hace que las roads no se ajusten bien al tamaño
+			//pq lo está redimensionando todo el rato, y hace que parpadee
+			updatePrefferedSize();//para que las coor no se salgan de la pantalla, esto es para redimensionarlo
 			drawMap(g);
 		}
 	}

@@ -46,7 +46,7 @@
 			mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 			setContentPane(mainPanel);
 
-			JLabel helpMsg = new JLabel("Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now");
+			JLabel helpMsg = new JLabel("<html>Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now</html>");
 			helpMsg.setAlignmentX(CENTER_ALIGNMENT);
 
 			mainPanel.add(helpMsg);
@@ -64,12 +64,12 @@
 			mainPanel.add(buttonsPanel);
 
 			_vehiclesModel = new DefaultComboBoxModel<>();
-			_vehicles = new JComboBox<>(_vehiclesModel);
+			_vehicles = new JComboBox<String>(_vehiclesModel);
 			viewsPanel.add( new JLabel("Vehicle: "));
 			viewsPanel.add(_vehicles);
 			
 			_co2ClassModel = new DefaultComboBoxModel<>();
-			_co2Class = new JComboBox<>(_co2ClassModel);
+			_co2Class = new JComboBox<Integer>(_co2ClassModel);
 			viewsPanel.add( new JLabel("CO2 Class: "));
 			viewsPanel.add(_co2Class);
 			for(int i=0;i<=10;i++) {
@@ -132,9 +132,7 @@
 		}
 
 		public Pair<String, Integer> getVehicleandClass() {
-=======
-			return new Pair((String) _vehiclesModel.getSelectedItem(),  _co2ClassModel.getSelectedItem());
->>>>>>> 77f2f716f2f88f842454d4d3b462fb98de1cb388
+			return new Pair<String, Integer>((String) _vehiclesModel.getSelectedItem(), (Integer)_co2ClassModel.getSelectedItem());
 		}
 		
 		public int getTicks() {
