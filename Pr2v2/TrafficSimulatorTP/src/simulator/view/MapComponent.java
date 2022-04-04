@@ -217,7 +217,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	public void update(RoadMap map) {
 		_map = map;
-		repaint();
+		repaint(); // se le llama al metodo paint
 	}
 
 	@Override
