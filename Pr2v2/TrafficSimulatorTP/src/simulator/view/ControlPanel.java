@@ -2,21 +2,25 @@ package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import simulator.control.Controller;
 import simulator.misc.Pair;
@@ -40,6 +44,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	private JButton weather;
 	private JSpinner ticks;
 	private JButton exit;
+	private JButton file;
+	private JFileChooser fc;
 	
 	//estas cosas habra q actualizarlas en los metodos de observador
 	private List<Road> _roads;
@@ -65,13 +71,38 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		ticks = new JSpinner(new SpinnerNumberModel(10, 1, 10000, 1));
 		stop = new JButton();
 		exit = new JButton();
+		file = new JButton();
 		barra = new JToolBar();
 		this.setLayout(new BorderLayout());//viene por defecto
 		this.add(barra, BorderLayout.NORTH);
 		
+		
+		//boton file
+		
+		file.setActionCommand("file");//no sirve de nada, ya está por defecto
+		file.setToolTipText("Select a file to load events");
+		file.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				fc = new JFileChooser();
+				fc.setCurrentDirectory(new File("/resources/examples/"));
+				fc.setMultiSelectionEnabled(false);//solo queremos q seleccione un archivo
+				fc.setFileFilter(new FileNameExtensionFilter("Archivos json", "json"));
+				int ret = fc.showOpenDialog(thisPanel());
+				if (ret == JFileChooser.APPROVE_OPTION) {
+					JOptionPane.showMessageDialog(thisPanel(), "Se ha seleccionado abrir el archivo: " + fc.getSelectedFile());
+				} else if (ret == JFileChooser.CANCEL_OPTION){
+					JOptionPane.showMessageDialog(thisPanel(), "Se ha pulsado cancelar.");
+				} else {//ha habido un error
+					JOptionPane.showMessageDialog(thisPanel(), "Ha habido un error.");
+				}
+			}
+		});
+		file.setIcon(new ImageIcon("resources/icons/open.png"));
+		barra.add(file);
+		
 		//boton contClass
 		
-		contClass.setActionCommand("contClass");//no sirve de nada, ya está por defecto
+		contClass.setActionCommand("contClass");
 		contClass.setToolTipText("Change contamination class");
 		contClass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -206,8 +237,12 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	 * de la clase JPanel pq dentro de la clase anonima el this cambia y 
 	 * no me deja usar el metodo
 	 */
-	private Frame getPreviousFrame() {
-		return (Frame) SwingUtilities.getWindowAncestor(this);
+	private JFrame getPreviousFrame() {
+		return (JFrame) SwingUtilities.getWindowAncestor(this);
+	}
+	
+	private JPanel thisPanel() {
+		return this;
 	}
 	
 	private void update(List<Road> roads, List<Vehicle> vehicles, List<Event> events, int time) {
