@@ -68,8 +68,13 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		JLabel l2;
 			
 		barra.add(l1, BorderLayout.WEST);
-		barra.add(Box.createRigidArea(new Dimension(200, 0)));
-		barra.add(new JSeparator(SwingConstants.VERTICAL));
+		barra.add(Box.createRigidArea(new Dimension(100, 20)));
+		JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+		separator.setMinimumSize(new Dimension(10,10));
+		separator.setMaximumSize(new Dimension(10,10));
+
+		barra.add(separator);
+		
 
 		if(_time==0 && _events.size()==0) {
 			l2= new JLabel(" Welcome!");
