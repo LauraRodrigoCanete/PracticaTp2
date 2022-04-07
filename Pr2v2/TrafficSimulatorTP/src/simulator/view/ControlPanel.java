@@ -202,7 +202,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				int n = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit?",SPACE+"Quit",JOptionPane.YES_NO_OPTION);				 
-		        if(n==0)
+		        if(n == 0)
 			        System.exit(0);			        
 			}
 		});
