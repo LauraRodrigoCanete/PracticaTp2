@@ -7,9 +7,6 @@ hay dos tipos de excepciones: de ejecucion (funcion del run) y la del fichero er
 para sobreescribir onadvancestart y onerror la unica q hace algo es la barra de estado
 
 acordarse de probar la practica en el laboratorio
-
-todas las ventanas devuelven el status en el open
-
 TODO:
 jfilechooser
 poner bonito el jtoolbar

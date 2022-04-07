@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,11 +94,19 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 				fc.setFileFilter(new FileNameExtensionFilter("Archivos json", "json"));
 				int ret = fc.showOpenDialog(thisPanel());
 				if (ret == JFileChooser.APPROVE_OPTION) {
+					FileInputStream in = null;
+					try {
+						in = (new FileInputStream(fc.getSelectedFile()));
+					} catch (FileNotFoundException e) {
+						JOptionPane.showMessageDialog(thisPanel(), "No se ha encontrado el archivo.");
+					}
+					_ctrl.reset();
+					_ctrl.loadEvents(in);
 					JOptionPane.showMessageDialog(thisPanel(), "Se ha seleccionado abrir el archivo: " + fc.getSelectedFile());
 				} else if (ret == JFileChooser.CANCEL_OPTION){
 					JOptionPane.showMessageDialog(thisPanel(), "Se ha pulsado cancelar.");
 				} else {//ha habido un error
-					JOptionPane.showMessageDialog(thisPanel(), "Ha habido un error.");
+					JOptionPane.showMessageDialog(thisPanel(), "Ha habido un error eligiendo el archivo.");
 				}
 			}
 		});
@@ -207,7 +217,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 			try {
 				_ctrl.run(1);
 			} catch (Exception e) {
-				// TODO show error message
+				JOptionPane.showMessageDialog(thisPanel(), "Ha habido un error en el run");
 				_stopped = true;
 				return;
 			}
