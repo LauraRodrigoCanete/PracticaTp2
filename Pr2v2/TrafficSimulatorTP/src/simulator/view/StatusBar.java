@@ -81,7 +81,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		}
 	
 		else if(_events.size()!=0&& _events.get(0).getTime()==_time+1 ) {
-			l2= new JLabel(" Event added ("+_events.get(0).toString()+")" );
+			l2= new JLabel(" Event added ("+_events.get(_events.size()).toString()+")" );
 			barra.add(l2);
 		}
 		barra.add(Box.createRigidArea(new Dimension(1400, 0)));
@@ -161,7 +161,8 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onError(String err) {
 		// TODO Auto-generated method stub
-		
+		JLabel l2= new JLabel(" Event added ("+_events.get(_events.size()).toString()+")" );
+		barra.add(l2);	
 	}
 
 }
