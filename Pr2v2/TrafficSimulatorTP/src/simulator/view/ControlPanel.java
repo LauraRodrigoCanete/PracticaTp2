@@ -26,6 +26,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.junit.platform.commons.util.StringUtils;
+
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.Event;
@@ -201,7 +203,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		exit.setToolTipText("exit the program");
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				int n = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit?",SPACE+"Quit",JOptionPane.YES_NO_OPTION);				 
+				int n = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit?","Quit",JOptionPane.YES_NO_OPTION);				 
 		        if(n == 0)
 			        System.exit(0);			        
 			}
