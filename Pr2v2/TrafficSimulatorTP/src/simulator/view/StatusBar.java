@@ -3,22 +3,28 @@ package simulator.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -40,37 +46,45 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 
 	private List<Event> _events;
 	private int _time;
+	private JMenuBar barra;
+
 	
 	public StatusBar(Controller _ctrl) {
 		_events = new ArrayList<Event>();
-		_time=1;
+		_time=0;
 		_ctrl.addObserver(this);
 		initGUI();
 
 	}
 	
 	public void initGUI() {
-		this.getLayout();
-		setLayout(new BorderLayout());
-        JPanel mainPanel = new JPanel();
+		//this.getLayout();
+		barra = new JMenuBar();
+		this.setLayout(new BorderLayout());//viene por defecto
+		this.add(barra, BorderLayout.NORTH);
+        //JPanel mainPanel = new JPanel();
 		
-		JLabel l1= new JLabel("Time: " + String.valueOf(_time));
+		JLabel l1= new JLabel(" Time: " + String.valueOf(_time));
 		JLabel l2;
-		if(_events.size()!=0 && _events.get(0).getTime() == _time)
-			l2= new JLabel("Event Added("+_events.get(0).toString()+")");
+			
+		barra.add(l1, BorderLayout.WEST);
+		barra.add(Box.createRigidArea(new Dimension(200, 0)));
+		barra.add(new JSeparator(SwingConstants.VERTICAL));
+
+		if(_time==0 && _events.size()==0) {
+			l2= new JLabel(" Welcome!");
+			barra.add(l2);
+		}
+	
+		else if(_events.size()!=0&& _events.get(0).getTime()==_time+1 ) {
+			l2= new JLabel(" Event added ("+_events.get(0).toString()+")" );
+			barra.add(l2);
+		}
+		barra.add(Box.createRigidArea(new Dimension(1400, 0)));
+
 		
-		JLabel l3 = new JLabel("                ");
-		mainPanel.add(l1, BorderLayout.WEST);
-		mainPanel.add(l3);
-
-		//mainPanel.add(l2, BorderLayout.EAST);
-		mainPanel.add(l3, BorderLayout.EAST);
-
-
+		//this.add(mainPanel);
 		
-		this.add(mainPanel);
-		//f.add(p);
-		//f.setSize(20, 300);
 
 		
 		
@@ -111,12 +125,14 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
+		this._time=time;
 		update(events);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		// TODO Auto-generated method stub
+		this._time=time;
 		update(events);
 
 	}
@@ -124,6 +140,8 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
+		this._time=time;
+
 		update(events);
 
 	}
@@ -131,6 +149,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
+		this._time=time;
 		update(events);
 
 	}

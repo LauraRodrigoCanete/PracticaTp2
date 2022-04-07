@@ -16,9 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -99,7 +101,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		});
 		file.setIcon(new ImageIcon("resources/icons/open.png"));
 		barra.add(file);
-		
+		barra.addSeparator();
 		//boton contClass
 		
 		contClass.setActionCommand("contClass");
@@ -144,6 +146,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		});
 		weather.setIcon(new ImageIcon("resources/icons/weather.png"));
 		barra.add(weather);
+		barra.addSeparator();
 		
 		//boton run
 		run.setActionCommand("run");
