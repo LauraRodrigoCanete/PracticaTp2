@@ -54,7 +54,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	private List<Vehicle> _vehicles;
 	private List<Event> _events;
 	private int _time;
-	
+	private static final String SPACE = "                                  ";
+
 	public ControlPanel(Controller ctrl) {
 		_roads = new ArrayList<>();
 		_vehicles = new ArrayList<>();
@@ -190,7 +191,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		exit.setToolTipText("exit the program");
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				System.exit(0);
+				 int n = JOptionPane.showConfirmDialog (null, "Are you sure you want to quit?",SPACE+"Quit",JOptionPane.YES_NO_OPTION);				 
+		        if(true)
+			        System.exit(0);			        
 			}
 		});
 		exit.setIcon(new ImageIcon("resources/icons/exit.png"));

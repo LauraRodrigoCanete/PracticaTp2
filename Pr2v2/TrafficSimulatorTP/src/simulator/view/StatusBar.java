@@ -47,7 +47,6 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	private List<Event> _events;
 	private int _time;
 	private JMenuBar barra;
-
 	
 	public StatusBar(Controller _ctrl) {
 		_events = new ArrayList<Event>();
