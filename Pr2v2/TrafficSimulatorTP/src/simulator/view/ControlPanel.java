@@ -66,7 +66,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		_events = new ArrayList<>();;
 		_time = 0;
 		_stopped = false;
-		_ctrl = ctrl;
+		this._ctrl = ctrl;
 		initGUI();
 		_ctrl.addObserver(this);
 	}
