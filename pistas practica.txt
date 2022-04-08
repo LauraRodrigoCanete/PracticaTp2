@@ -1,15 +1,5 @@
-para sacar el texto de las excepciones tendremos q extender a jdialog (analogo a las ventanas semipreparados jRadioButtonYOptionPane)
-
-para cuando yo le doy al boton salir me tiene q aparecer una ventana de estas seguro q quieres salir(ejemplo JOptionPane ventana semipreparada de opciones)
-
-hay dos tipos de excepciones: de ejecucion (funcion del run) y la del fichero erroneo
-
 para sobreescribir onadvancestart y onerror la unica q hace algo es la barra de estado
 
 acordarse de probar la practica en el laboratorio
-TODO:
-jfilechooser
-poner bonito el jtoolbar
-cartelito del boton exit
-cartelito excepciones (dos tipos)
+TODO
 status bar
