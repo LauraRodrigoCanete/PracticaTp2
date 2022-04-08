@@ -138,6 +138,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		// TODO Auto-generated method stub
 		this._time=time;
 		update(events);
+		barra.add(new JLabel(e.toString()));
 
 	}
 
