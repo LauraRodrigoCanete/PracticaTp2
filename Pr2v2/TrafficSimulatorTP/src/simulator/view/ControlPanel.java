@@ -66,7 +66,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		_events = new ArrayList<>();;
 		_time = 0;
 		_stopped = false;
-		_ctrl = ctrl;
+		this._ctrl = ctrl;
 		initGUI();
 		_ctrl.addObserver(this);
 	}
@@ -91,7 +91,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		file.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				fc = new JFileChooser();
-				fc.setCurrentDirectory(new File("/resources/examples/"));
+				fc.setCurrentDirectory(new File("resources/examples/"));
 				fc.setMultiSelectionEnabled(false);//solo queremos q seleccione un archivo
 				fc.setFileFilter(new FileNameExtensionFilter("Archivos json", "json"));
 				int ret = fc.showOpenDialog(thisPanel());
@@ -130,7 +130,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 				} else {
 					List<Pair<String,Integer>> pairs = new ArrayList<Pair<String,Integer>>();
 					pairs.add(dialog.getVehicleandClass());
-					_events.add(new SetContClassEvent(_time + dialog.getTicks(), pairs));
+					_ctrl.addEvent(new SetContClassEvent(_time + dialog.getTicks(), pairs));
 				}
 			}
 		});
@@ -153,7 +153,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 				} else {
 					List<Pair<String,Weather>> pairs = new ArrayList<Pair<String,Weather>>();
 					pairs.add(dialog.getRoadandWeather());
-					_events.add(new SetWeatherEvent(_time + dialog.getTicks(), pairs));
+					_ctrl.addEvent(new SetWeatherEvent(_time + dialog.getTicks(), pairs));
 				}
 			}
 		});
