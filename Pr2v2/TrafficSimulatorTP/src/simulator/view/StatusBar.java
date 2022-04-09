@@ -2,7 +2,9 @@ package simulator.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,99 +48,64 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 
 	private List<Event> _events;
 	private int _time;
-	private JMenuBar barra;
+	private JPanel izquierda;
+	private JPanel derecha;
+	private JLabel izq;
+	private JLabel der;
 	
 	public StatusBar(Controller _ctrl) {
 		_events = new ArrayList<Event>();
 		_time=0;
 		_ctrl.addObserver(this);
+		
+		izquierda = new JPanel();
+		derecha = new JPanel();
+		izq= new JLabel(" Time: " + String.valueOf(_time));
+		der= new JLabel(" Welcome!");
 		initGUI();
-
 	}
 	
 	public void initGUI() {
-		//this.getLayout();
-		barra = new JMenuBar();
-		this.setLayout(new BorderLayout());//viene por defecto
-		this.add(barra, BorderLayout.NORTH);
-        //JPanel mainPanel = new JPanel();
 		
-		JLabel l1= new JLabel(" Time: " + String.valueOf(_time));
-		JLabel l2;
-			
-		barra.add(l1, BorderLayout.WEST);
-		barra.add(Box.createRigidArea(new Dimension(100, 20)));
+		izquierda.add(izq);
+		derecha.add(der);
+		this.setLayout(new FlowLayout(FlowLayout.LEFT));//viene por defecto
 		JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
-		separator.setMinimumSize(new Dimension(10,10));
-		separator.setMaximumSize(new Dimension(10,10));
+		separator.setPreferredSize(new Dimension(5, 20));		
 
-		barra.add(separator);
-		
-
-		if(_time==0 && _events.size()==0) {
-			l2= new JLabel(" Welcome!");
-			barra.add(l2);
-		}
-	
-		else if(_events.size()!=0&& _events.get(0).getTime()==_time+1 ) {
-			l2= new JLabel(" Event added ("+_events.get(_events.size()).toString()+")" );
-			barra.add(l2);
-		}
-		barra.add(Box.createRigidArea(new Dimension(1400, 0)));
-
-		
-		//this.add(mainPanel);
-		
-
-		
-		
-		
-
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//this.setSize(700, 300);
-		//this.pack();
+     	this.add(izquierda);
+	    this.add(Box.createRigidArea(new Dimension(100, 20)));
+	    this.add(separator);
+		this.add(derecha); 	
 	}
 	public void setEventsList(List<Event> events) {
 		_events = events;
-		//fireTableDataChanged();
 	}
 	public void update(List<Event> events) {
 		_events = events;
-		repaint();
 	}
-/*	public static void main(String[] args) {
 
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				List<Event> list=new ArrayList();
-				List<Pair<String,Weather>> ws = new ArrayList();
-				Pair par=new Pair("Hola", Weather.CLOUDY);
-				ws.add(par);
-				Event e=new SetWeatherEvent(1, ws);
-				list.add(e);
-				new StatusBar(list);
-			}
-		});
-	}*/
 	@Override
 	public void onAdvanceStart(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		
+		this._time=time;
+		der.setText("");		
 	}
 
 	@Override
 	public void onAdvanceEnd(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
 		this._time=time;
-		update(events);
+		izq.setText(" Time: " + String.valueOf(_time));
+		der.setText("");
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
 		// TODO Auto-generated method stub
 		this._time=time;
-		update(events);
-		barra.add(new JLabel(e.toString()));
+		der.setText(e.toString());
+
 
 	}
 
@@ -146,24 +113,21 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
 		this._time=time;
-
-		update(events);
+		der.setText("");
+		izq.setText(" Time: " + String.valueOf(_time));
 
 	}
 
 	@Override
 	public void onRegister(RoadMap map, List<Event> events, int time) {
 		// TODO Auto-generated method stub
-		this._time=time;
-		update(events);
-
+	
 	}
 
 	@Override
 	public void onError(String err) {
 		// TODO Auto-generated method stub
-		JLabel l2= new JLabel(" Event added ("+_events.get(_events.size()).toString()+")" );
-		barra.add(l2);	
+		der.setText(err);
 	}
 
 }
