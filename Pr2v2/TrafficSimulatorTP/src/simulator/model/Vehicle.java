@@ -67,15 +67,15 @@ public class Vehicle extends SimulatedObject{
 		return Collections.unmodifiableList(itinerary);
 	}
 	
-//	public String getWaitingJunction() {
-//		return itinerary.get(prevJunction+1).getId();
-//	}
-	public String getWaitingJunction() { // he cambiado esto y se va el problema pero no sé si afecta al funcionamiento de algo
-		if(prevJunction!=this.itinerary.size()-1)
-			return itinerary.get(prevJunction+1).getId();
-		else
-			return itinerary.get(prevJunction).getId();
-    }
+	public String getWaitingJunction() {
+		return itinerary.get(prevJunction+1).getId();
+	}
+//	public String getWaitingJunction() { // he cambiado esto y se va el problema pero no sé si afecta al funcionamiento de algo
+//		if(prevJunction!=this.itinerary.size()-1)
+//			return itinerary.get(prevJunction+1).getId();
+//		else
+//			return itinerary.get(prevJunction).getId();
+//    }
 
 	public Road getRoad() {
 		return road;
