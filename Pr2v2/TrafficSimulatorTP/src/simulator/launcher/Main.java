@@ -131,7 +131,7 @@ public class Main {
 	
 	private static void parseModeOption(CommandLine line) throws ParseException {
 		String mode = line.getOptionValue("m", Mode.GUI.toString());
-		_mode = ((mode.toUpperCase() == Mode.CONSOLE.toString()) ? Mode.CONSOLE : Mode.GUI);
+		_mode = ((mode.toUpperCase().equals(Mode.CONSOLE.toString())) ? Mode.CONSOLE : Mode.GUI);
 		
 		if(!mode.toUpperCase().contentEquals(Mode.CONSOLE.toString()) && 
 				!mode.toUpperCase().contentEquals(Mode.GUI.toString())) {

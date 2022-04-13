@@ -67,6 +67,7 @@ public class Vehicle extends SimulatedObject{
 		return Collections.unmodifiableList(itinerary);
 	}
 	
+<<<<<<< HEAD
 	public String getWaitingJunction() {
 		return itinerary.get(prevJunction+1).getId();
 	}
@@ -76,6 +77,17 @@ public class Vehicle extends SimulatedObject{
 //		else
 //			return itinerary.get(prevJunction).getId();
 //    }
+=======
+//	public String getWaitingJunction() {
+//		return itinerary.get(prevJunction+1).getId();
+//	}
+	public String getWaitingJunction() {
+		if(prevJunction!=this.itinerary.size()-1)
+			return itinerary.get(prevJunction+1).getId();
+		else
+			return itinerary.get(prevJunction).getId();
+    }
+>>>>>>> branch 'main' of git@github.com:LauraRodrigoCanete/PracticaTp2.git
 
 	public Road getRoad() {
 		return road;
