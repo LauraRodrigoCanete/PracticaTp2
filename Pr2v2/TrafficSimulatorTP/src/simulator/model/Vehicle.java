@@ -70,7 +70,7 @@ public class Vehicle extends SimulatedObject{
 //	public String getWaitingJunction() {
 //		return itinerary.get(prevJunction+1).getId();
 //	}
-	public String getWaitingJunction() { // he cambiado esto y se va el problema pero no sé si afecta al funcionamiento de algo
+	public String getWaitingJunction() {
 		if(prevJunction!=this.itinerary.size()-1)
 			return itinerary.get(prevJunction+1).getId();
 		else
