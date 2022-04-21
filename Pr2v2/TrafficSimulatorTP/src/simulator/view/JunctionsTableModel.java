@@ -57,19 +57,22 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 			s=_junctions.get(rowIndex).getTrafficLight();
 			if(s.equals(-1))
 				s="NONE";
+			else
+				s=_junctions.get(rowIndex).getInRoads().get(_junctions.get(rowIndex).getTrafficLight());
 			break;
 		case 2:
-			String a="";
-			for(int i=0; i<this._junctions.size();i++) {
-				a+=this._junctions.get(i).getId()+":";
-				if(_junctions.get(i).getQueueList().size()==0) 
-					a+="[]";			
+			 s="";
+			for(int i=0; i<this._junctions.get(rowIndex).getInRoads().size();i++) {
+				s+=this._junctions.get(rowIndex).getInRoads().get(i).getId()+":";
+				if(_junctions.get(rowIndex).getInRoads().get(i).getVehicles().size()==0) 
+					s+="[] ";			
 				else {
-					for(int j=0;j<_junctions.get(i).getQueueList().size();j++) {
-						a+="[";
-						a+=_junctions.get(i).getQueueList().get(j).toString();
-						a+="]";
+					for(int j=0;j<_junctions.get(rowIndex).getInRoads().get(i).getVehicles().size();j++) {
+						s+="[";			
+						s+=_junctions.get(rowIndex).getInRoads().get(i).getVehicles().get(j).getId();
+						s+="] ";
 					}
+											
 				}			
 			}
 			break;
