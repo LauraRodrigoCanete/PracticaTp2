@@ -11,17 +11,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class SetContClassEventBuilder extends Builder<Event> {
-	private int time;
-	private  List<Pair<String,Integer>> cs;
 
 	public SetContClassEventBuilder() {
 		super("set_cont_class");
-		cs = new ArrayList<>();
 	}
 
 	@Override
 	protected Event createTheInstance(JSONObject data) {
-		time=data.getInt("time");
+		int time=data.getInt("time");
+		List<Pair<String,Integer>> cs = new ArrayList<>();
 		JSONArray ja=data.getJSONArray("info");
 		for(int i=0;i<ja.length();i++) {
 			String id = ja.getJSONObject(i).getString("vehicle");
