@@ -80,7 +80,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 				t.onAdvanceEnd(map, events, time);
 			}
 		}
-		catch(IllegalArgumentException i) {
+		catch(Exception i) {
 			for(TrafficSimObserver t: observers) {
 				t.onError(i.getMessage());
 			}

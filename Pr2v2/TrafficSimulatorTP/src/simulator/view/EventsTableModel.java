@@ -22,10 +22,6 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		_events = new ArrayList<>();
 		this.controller = controller;
 		controller.addObserver(this);
-	//	Graphics2D g;
-	//	g.setColor(Color.white);
-	//	g.clearRect(0, 0, getWidth(), getHeight());
-		//esto no se hace visible, ya hacemos visible el JFrame entero
 	}
 	
 	public void setEventsList(List<Event> events) {
@@ -58,13 +54,14 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		Object s = null;
+		String s = "";
+		Event e = _events.get(rowIndex);
 		switch (columnIndex) {//cada case es una columna
 		case 0:
-			s = _events.get(rowIndex).getTime();//los ticks son cada cuanto avanzas, el time el numero de ticks totales avanzados
+			s =  s + e.getTime();//los ticks son cada cuanto avanzas, el time el numero de ticks totales avanzados
 			break;
 		case 1:
-			s = _events.get(rowIndex).toString();
+			s = s + e.toString();
 			break;
 		}
 		return s;

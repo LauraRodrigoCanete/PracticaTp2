@@ -14,17 +14,16 @@ import simulator.model.Weather;
 
 public class SetWeatherEventBuilder extends Builder<Event> {
 
-	private int time;
-	private  List<Pair<String,Weather>> ws;
 	
 	public SetWeatherEventBuilder() {
 		super("set_weather");
-		ws = new ArrayList<>();
+		
 	}
 
 	@Override
 	protected Event createTheInstance(JSONObject data) {
-		time = data.getInt("time");
+		List<Pair<String,Weather>> ws = new ArrayList<>();
+		int time = data.getInt("time");
 		JSONArray ja = data.getJSONArray("info");
 		for(int i=0;i<ja.length();i++) {
 			String id = ja.getJSONObject(i).getString("road");
