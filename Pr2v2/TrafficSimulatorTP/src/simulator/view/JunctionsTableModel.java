@@ -70,7 +70,7 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 					for(int j=0;j<_junctions.get(rowIndex).getQueueList().get(i).size();j++) {
 						s+="[";			
 						s+=_junctions.get(rowIndex).getQueueList().get(i).get(j).getId();
-						s+="] ";
+						s+="] " ;
 					}
 											
 				}			
