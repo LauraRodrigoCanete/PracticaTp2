@@ -2,6 +2,7 @@ package simulator.model;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 	private List<TrafficSimObserver> observers;
 	private RoadMap map;
 	private List<Event> events;//ordenada por el tiempo de los eventos
+	private List<Event> eventsRO;
 	private int time;
 	
 	public TrafficSimulator() {
@@ -22,12 +24,14 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 
 		//usa el orden natural de los eventos (que implementan comparable), está hecho así en la clase de sorted
 		events = new SortedArrayList<Event>();
+		eventsRO = Collections.unmodifiableList(events);
+		
 		observers = new ArrayList<TrafficSimObserver>();
 	}
 
 	public void addObserver(TrafficSimObserver o) {
 		observers.add(o);
-		o.onRegister(map, events, time);
+		o.onRegister(map, eventsRO, time);
 	}
 	
 	public void removeObserver(TrafficSimObserver o) {
@@ -39,7 +43,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		events.clear();
 		time = 0;
 		for(TrafficSimObserver t: observers) {
-			t.onReset(map, events, time);
+			t.onReset(map, eventsRO, time);
 		}
 	}
 	
@@ -52,7 +56,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		}
 		events.add(e);
 		for(TrafficSimObserver t: observers) {
-			t.onEventAdded(map, events, e, time);
+			t.onEventAdded(map, eventsRO, e, time);
 		}
 	}
 	
@@ -60,7 +64,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		
 		time++;
 		for(TrafficSimObserver t: observers) {
-			t.onAdvanceStart(map, events, time);
+			t.onAdvanceStart(map, eventsRO, time);
 		}
 		
 		try {	
@@ -77,7 +81,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 				r.advance(time);//el advance de carreteras dice a los vehiculos que avancen
 			}
 			for(TrafficSimObserver t: observers) {
-				t.onAdvanceEnd(map, events, time);
+				t.onAdvanceEnd(map, eventsRO, time);
 			}
 		}
 		catch(Exception i) {

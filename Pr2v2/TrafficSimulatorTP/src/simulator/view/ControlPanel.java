@@ -101,9 +101,16 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 						in = (new FileInputStream(fc.getSelectedFile()));
 					} catch (FileNotFoundException e) {
 						JOptionPane.showMessageDialog(thisPanel(), "No se ha encontrado el archivo.");
+						enableToolBar(true);
 					}
+					try {
 					_ctrl.reset();
 					_ctrl.loadEvents(in);
+					} catch(Exception e) {
+						JOptionPane.showMessageDialog(thisPanel(), "Error sintactico.");
+						enableToolBar(true);
+					}
+					
 					JOptionPane.showMessageDialog(thisPanel(), "Se ha seleccionado abrir el archivo: " + fc.getSelectedFile());
 				} else if (ret == JFileChooser.CANCEL_OPTION){
 					JOptionPane.showMessageDialog(thisPanel(), "Se ha pulsado cancelar.");

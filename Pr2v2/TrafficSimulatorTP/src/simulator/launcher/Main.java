@@ -179,10 +179,10 @@ public class Main {
 		TrafficSimulator modelo = new TrafficSimulator();
 		Controller control = new Controller(modelo,  _eventsFactory);
 
-//		if(_inFile != null) {
-//			FileInputStream in = (new FileInputStream(new File(_inFile)));
-//			control.loadEvents(in);
-//		}
+		if(_inFile != null) {
+			FileInputStream in = (new FileInputStream(new File(_inFile)));
+			control.loadEvents(in);
+		}
 		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

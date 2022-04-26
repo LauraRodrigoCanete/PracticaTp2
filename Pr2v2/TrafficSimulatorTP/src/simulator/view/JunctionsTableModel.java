@@ -49,27 +49,28 @@ public class JunctionsTableModel extends AbstractTableModel implements TrafficSi
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Object s = null;
+		Junction j = _junctions.get(rowIndex);
 		switch(columnIndex) {
 		case 0:
-			s=_junctions.get(rowIndex).getId();
+			s= j.getId();
 			break;
 		case 1:
-			s=_junctions.get(rowIndex).getTrafficLight();
+			s= j.getTrafficLight();
 			if(s.equals(-1))
 				s="NONE";
 			else
-				s=_junctions.get(rowIndex).getInRoads().get(_junctions.get(rowIndex).getTrafficLight());
+				s= j.getInRoads().get(j.getTrafficLight());
 			break;
 		case 2:
 			 s="";
-			for(int i=0; i<this._junctions.get(rowIndex).getInRoads().size();i++) {
-				s+=this._junctions.get(rowIndex).getInRoads().get(i).getId()+":";
-				if(_junctions.get(rowIndex).getQueueList().get(i).size()==0) 
+			for(int i=0; i<j.getInRoads().size();i++) {
+				s+=j.getInRoads().get(i).getId()+":";
+				if(j.getQueueList().get(i).size()==0) 
 					s+="[] ";			
 				else {
-					for(int j=0;j<_junctions.get(rowIndex).getQueueList().get(i).size();j++) {
+					for(int k=0;k < j.getQueueList().get(i).size();k++) {
 						s+="[";			
-						s+=_junctions.get(rowIndex).getQueueList().get(i).get(j).getId();
+						s+=j.getQueueList().get(i).get(k).getId();
 						s+="] " ;
 					}
 											
