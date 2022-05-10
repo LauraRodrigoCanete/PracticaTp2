@@ -47,8 +47,6 @@ public class Controller {
 	}
 	
 	public void loadEvents(InputStream in) {
-		//nos dijo que no hacia falta comprobar que eran semanticamente iguales
-		
 		JSONObject jo = new JSONObject(new JSONTokener(in)); 
 		JSONArray ja = jo.getJSONArray("events");
 		for(int i=0;i<ja.length();i++) {

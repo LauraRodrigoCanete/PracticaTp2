@@ -27,13 +27,13 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	
 	public StatusBar(Controller _ctrl) {
 		_time=0;
-		_ctrl.addObserver(this);
-		
 		izquierda = new JPanel();
 		derecha = new JPanel();
 		izq= new JLabel(" Time: " + String.valueOf(_time));
 		der= new JLabel(" Welcome!");
 		initGUI();
+
+		_ctrl.addObserver(this);
 	}
 	
 	public void initGUI() {

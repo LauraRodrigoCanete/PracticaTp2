@@ -26,8 +26,6 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import org.junit.platform.commons.util.StringUtils;
-
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.Event;
@@ -80,7 +78,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		exit = new JButton();
 		file = new JButton();
 		barra = new JToolBar();
-		this.setLayout(new BorderLayout());//viene por defecto
+		this.setLayout(new BorderLayout());
 		this.add(barra, BorderLayout.NORTH);
 		
 		
@@ -122,8 +120,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		file.setIcon(new ImageIcon("resources/icons/open.png"));
 		barra.add(file);
 		barra.addSeparator();
-		//boton contClass
 		
+		//boton contClass
 		contClass.setActionCommand("contClass");
 		contClass.setToolTipText("Change contamination class");
 		contClass.addActionListener(new ActionListener() {

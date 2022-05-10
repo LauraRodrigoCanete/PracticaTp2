@@ -18,7 +18,7 @@ public class Junction extends SimulatedObject{
 	private Map<Junction, Road> exitRoadsMap;
 	private List<List<Vehicle>> queueList;//las colas de cada carretera entrante
 	private Map <Road, List<Vehicle>> queueMap;
-	private int trafficLight;
+	private int trafficLight;//currgreen
 	private int lastSwitch;
 	private LightSwitchingStrategy lsStrategy;
 	private DequeuingStrategy dqStrategy;
@@ -75,7 +75,7 @@ public class Junction extends SimulatedObject{
 	
 	void enter(Vehicle v) {
 		queueMap.get(v.getRoad()).add(v);
-		//vale con solo añadirlo al mapa y no a la lista porque son el mismo objeto
+		//vale con solo añadirlo al mapa y no a la lista porque la carretera es el mismo objeto
 	}
 	
 	Road roadTo(Junction j) {
@@ -84,6 +84,8 @@ public class Junction extends SimulatedObject{
 	
 	@Override
 	public void advance(int time) {
+		
+		//vemos que vehiculos avanzan con el semaforo actual
 		if(trafficLight != -1) {
 			List<Vehicle> vehiclesqueue = dqStrategy.dequeue(queueList.get(trafficLight));
 	
@@ -97,6 +99,8 @@ public class Junction extends SimulatedObject{
 				queueList.get(trafficLight).remove(vehiclesqueue.remove(0));
 			}
 		}
+		
+		//cambiamos el semaforo
 		int aux = lsStrategy.chooseNextGreen(entryRoadsList, queueList, trafficLight, lastSwitch, time);
 		if(aux!=trafficLight) {
 			lastSwitch=time;

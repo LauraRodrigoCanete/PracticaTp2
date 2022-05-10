@@ -113,7 +113,6 @@ public class Main {
 		}
 	}
 
-	//se ignora en gui pero tampoco pasa nada si entra aqui
 	private static void parseOutFileOption(CommandLine line) throws ParseException {
 		_outFile = line.getOptionValue("o");
 	}

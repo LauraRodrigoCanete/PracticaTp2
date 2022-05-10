@@ -28,7 +28,7 @@ public class NewVehicleEvent extends Event {
 		
 		Vehicle v = new Vehicle(id, maxSpeed, contClass, itinerary);
 		map.addVehicle(v);
-		v.moveToNextRoad();
+		v.moveToNextRoad();//ojo ojo que lo haces aqui y no en el addVehicle
 		
 	}
 

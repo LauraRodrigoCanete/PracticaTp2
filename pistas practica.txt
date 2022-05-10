@@ -1,5 +1,0 @@
-para sobreescribir onadvancestart y onerror la unica q hace algo es la barra de estado
-
-acordarse de probar la practica en el laboratorio
-TODO
-status bar

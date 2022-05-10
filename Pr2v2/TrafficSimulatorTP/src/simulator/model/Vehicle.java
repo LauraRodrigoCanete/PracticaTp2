@@ -15,7 +15,7 @@ public class Vehicle extends SimulatedObject{
 	private int contClass;//contamination class
 	private int distance;//distancia total recorrida
 	private VehicleStatus status;
-	private int CO2;//contamination
+	private int CO2;//total contamination
 	private List<Junction> itinerary;
 	private int prevJunction;//indice del cruce en el que estamos/acabamos de pasar
 	private Road road;
@@ -67,19 +67,6 @@ public class Vehicle extends SimulatedObject{
 		return Collections.unmodifiableList(itinerary);
 	}
 	
-
-////	public String getWaitingJunction() {
-////		return itinerary.get(prevJunction+1).getId();
-////	}
-//	public String getWaitingJunction() { // he cambiado esto y se va el problema pero no sé si afecta al funcionamiento de algo
-//		if(prevJunction!=this.itinerary.size()-1)
-//			return itinerary.get(prevJunction+1).getId();
-//		else
-//			return itinerary.get(prevJunction).getId();
-//    }
-//	public String getWaitingJunction() {
-//		return itinerary.get(prevJunction+1).getId();
-//	}
 	public String getWaitingJunction() {
 		if(prevJunction!=this.itinerary.size()-1)
 			return itinerary.get(prevJunction+1).getId();
@@ -106,7 +93,7 @@ public class Vehicle extends SimulatedObject{
 		this.contClass = c;
 	}
 
-	void moveToNextRoad() {
+	void moveToNextRoad() {//para cuando hemos sido seleccionados para pasar en el cruce a la siguiente road
 		if(status != VehicleStatus.PENDING && status != VehicleStatus.WAITING)
 			throw new IllegalArgumentException("status is not pending or waiting so cannot move to next road"); 
 		
@@ -138,7 +125,7 @@ public class Vehicle extends SimulatedObject{
 			CO2 += c;
 			road.addContamination(c);
 			if(location == road.getLength()) {
-				road.getDest().enter(this);
+				road.getDest().enter(this);//entras en la cola del cruce
 				status = VehicleStatus.WAITING;
 				speed = 0;
 			}
@@ -163,7 +150,6 @@ public class Vehicle extends SimulatedObject{
 		
 		return jo;
 	}
-	
 	
 	
 }

@@ -14,7 +14,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 	private List<TrafficSimObserver> observers;
 	private RoadMap map;
 	private List<Event> events;//ordenada por el tiempo de los eventos
-	private List<Event> eventsRO;
+	private List<Event> eventsRO;//read only, se actualiza automaticamente con la otra
 	private int time;
 	
 	public TrafficSimulator() {
